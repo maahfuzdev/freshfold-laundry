@@ -210,14 +210,6 @@
     });
 
 
-    function handleEnter(event) {
-      if (event.key === "Enter") {
-        const input = document.getElementById("userInput").value.trim();
-        if (input) {
-          getSmartResponse(input);
-        }
-      }
-    }
 
 
 
@@ -313,32 +305,79 @@
       "স্থান": "location"
     };
 
+    function levenshteinDistance(a, b) {
+      const matrix = Array.from({ length: a.length + 1 }, () => []);
+      for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+      for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,     // Deletion
+            matrix[i][j - 1] + 1,     // Insertion
+            matrix[i - 1][j - 1] + cost // Substitution
+          );
+        }
+      }
+
+      return matrix[a.length][b.length];
+    }
+
+    function isSimilar(word, target, threshold = 0.5) {
+      const distance = levenshteinDistance(word, target);
+      const maxLen = Math.max(word.length, target.length);
+      return (distance / maxLen) <= (1 - threshold);
+    }
+
     function getSmartResponse(query) {
       query = query.toLowerCase();
+      const words = query.split(/[\s,.;!?]+/);
 
-      // synonyms দিয়ে আগে মেচ করবো
-      for (let word in synonyms) {
-        if (query.includes(word)) {
+      // Step 1: Try matching with synonyms (exact)
+      for (let word of words) {
+        if (synonyms[word]) {
           const key = synonyms[word];
           return responses[key];
         }
       }
 
-      // synonyms না মিলে responses এর মূল key দিয়ে মেচ করবো
-      let matchedKey = Object.keys(responses).find((key) =>
-        key.includes(query) || query.includes(key)
-      );
+      // Step 2: Try matching with responses directly (exact)
+      for (let word of words) {
+        if (responses[word]) {
+          return responses[word];
+        }
+      }
 
-      return matchedKey
-        ? responses[matchedKey]
-        : "দুঃখিত, এই সম্পর্কে আমার কাছে কোনো তথ্য নেই।";
+      // Step 3: Fuzzy matching with synonyms
+      for (let word of words) {
+        for (let key in synonyms) {
+          if (isSimilar(word, key)) {
+            const responseKey = synonyms[key];
+            return responses[responseKey];
+          }
+        }
+      }
+
+      // Step 4: Fuzzy matching with response keywords
+      for (let word of words) {
+        for (let key in responses) {
+          if (isSimilar(word, key)) {
+            return responses[key];
+          }
+        }
+      }
+
+      // Step 5: No match found
+      return "দুঃখিত, এই সম্পর্কে আমার কাছে কোনো তথ্য নেই।";
     }
 
     function handleInput() {
       const input = document.getElementById("userInput").value;
       const reply = getSmartResponse(input);
-      document.getElementById("responseBox").innerText = reply;
+      document.getElementById("responseBox").innerHTML = reply;
     }
+    window.handleInput = handleInput;
 
     // Modal control
     const openModalBtn = document.getElementById("openModalBtn");

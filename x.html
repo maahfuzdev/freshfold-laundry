@@ -1,70 +1,118 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>স্মার্ট কাস্টমার বট</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f2f2f2;
+    }
+
+    #container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #userInput {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    #responseBox {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e8f5e9;
+      border-left: 5px solid #4caf50;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #2196f3;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0d8bf2;
+    }
+  </style>
+</head>
+
 <body>
-  <h2>আপনার অর্ডার</h2>
-  <div id="orderList"></div>
+
+  <div id="container">
+    <h2>কাস্টমার সহায়তা</h2>
+    <input type="text" id="userInput" placeholder="আপনার প্রশ্ন লিখুন..."
+      onkeypress="if(event.key === 'Enter') handleInput()" />
+    <button onclick="handleInput()">জমা দিন</button>
+
+    <div id="responseBox"></div>
+  </div>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCrPUFMdKuxMDV16RIu833yvzw-a8WxCSg",
-      authDomain: "smart-laundry-2d523.firebaseapp.com",
-      projectId: "smart-laundry-2d523",
-      storageBucket: "smart-laundry-2d523.appspot.com",
-      messagingSenderId: "7431686498",
-      appId: "1:7431686498:web:d4d1a4377327c7eafac43b",
-      measurementId: "G-K6W312NY4M"
+    const responses = {
+      "ironing": "আমাদের দোকানে ইস্ত্রি পরিষেবা প্রদান করা হয়।",
+      "delivery": "ডেলিভারি ২-৩ কার্যদিবসের মধ্যে সম্পন্ন হয়।",
+      "dry clean": "আমরা ড্রাই ক্লিন পরিষেবাও দিয়ে থাকি।"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const auth = firebase.auth();
+    const synonyms = {
+      "iron": "ironing",
+      "steam": "ironing",
+      "press": "ironing",
+      "shipping": "delivery",
+      "send": "delivery",
+      "drop": "delivery",
+      "wash": "dry clean",
+      "clean": "dry clean"
+    };
 
-    // Watch for auth state
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        const email = user.email;
-        fetchOrders(email);
-      } else {
-        document.getElementById("orderList").innerHTML = `
-          <p style="text-align:center; color: red;">
-            আপনি লগ ইন করেননি। অর্ডার দেখতে লগ ইন করুন।
-          </p>
-        `;
-      }
-    });
+    function getSmartResponse(query) {
+      query = query.toLowerCase();
 
-    async function fetchOrders(email) {
-      try {
-        const snapshot = await db.collection("orders").where("email", "==", email).get();
-        const orderListDiv = document.getElementById("orderList");
-        orderListDiv.innerHTML = '';
-
-        if (snapshot.empty) {
-          orderListDiv.innerHTML = `<p style="text-align:center; color:red;">আপনার কোনো অর্ডার পাওয়া যায়নি।</p>`;
-          return;
+      // Step 1: Try matching with synonyms
+      for (let word in synonyms) {
+        if (query.includes(word)) {
+          const key = synonyms[word];
+          return responses[key];
         }
-
-        snapshot.forEach((doc) => {
-          const order = doc.data();
-
-          const itemListHTML = (order.items || [])
-            .map(item => `<li>${item.qty} × ${item.name} — ৳${item.subtotal}</li>`)
-            .join('');
-
-          orderListDiv.innerHTML += `
-            <div class="history-item">
-              <strong>Order ID:</strong> ${doc.id}<br>
-              <strong>Name:</strong> ${order.name}<br>
-              <strong>Phone:</strong> ${order.phone || 'N/A'}<br>
-              <strong>Address:</strong> ${order.address || 'N/A'}<br>
-              <strong>Items:</strong>
-              <ul class="item-list">${itemListHTML}</ul>
-              <strong>Total:</strong> ৳${order.grandTotal}
-            </div>
-          `;
-        });
-
-      } catch (error) {
-        console.error("ডাটা আনার সময় সমস্যা:", error);
       }
+
+      // Step 2: Try exact key match
+      for (let key of Object.keys(responses)) {
+        if (query.includes(key)) {
+          return responses[key];
+        }
+      }
+
+      // Step 3: Fallback
+      return "দুঃখিত, এই সম্পর্কে আমার কাছে কোনো তথ্য নেই।";
+    }
+
+    function handleInput() {
+      const input = document.getElementById("userInput").value;
+      const reply = getSmartResponse(input);
+      document.getElementById("responseBox").innerHTML = reply;
     }
   </script>
+
 </body>
+
+</html>
