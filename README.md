@@ -47,3 +47,7 @@ Serve the project root with VS Code Live Server or `python -m http.server 5500`,
 ## Firebase
 
 The selected project is in `.firebaserc`. Hosting configuration is in `firebase.json`; review it before deployment.
+
+## Search engines
+
+The public landing page has a descriptive title, summary, canonical URL, and website metadata. `robots.txt` allows crawling and points to `sitemap.xml`; account, dashboard, and wallet pages are marked `noindex`. To request Google indexing, verify this site in Google Search Console and submit `https://maahfuzdev.github.io/freshfold-laundry/sitemap.xml`. Search engines decide when and whether to show the site.

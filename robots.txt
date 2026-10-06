@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maahfuzdev.github.io/freshfold-laundry/sitemap.xml
