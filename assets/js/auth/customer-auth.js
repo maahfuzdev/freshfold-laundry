@@ -116,7 +116,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 
         document.getElementById('loginError').textContent = "";
         alert("✅ Login successful!");
-        window.location.href = "/pages/customer-dashboard.html"; // redirect after login
+        window.location.href = "customer-dashboard.html"; // redirect after login
 
       } catch (error) {
         document.getElementById('loginError').textContent = "❌ " + error.message;

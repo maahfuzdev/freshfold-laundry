@@ -6,6 +6,7 @@ A static laundry service site built with HTML, CSS, JavaScript, and Firebase. Pa
 
 ```text
 .
+|-- index.html                  # Redirects the site root to the landing page
 |-- pages/
 |   |-- index.html
 |   |-- customer-login.html
@@ -41,7 +42,7 @@ Each page loads its own JavaScript module. Reusable behavior such as the laundry
 
 ## Run locally
 
-Serve the project root with VS Code Live Server or `python -m http.server 5500`, then open `http://localhost:5500/pages/`. Firebase Hosting rewrites the site root to `pages/index.html`.
+Serve the project root with VS Code Live Server or `python -m http.server 5500`, then open `http://localhost:5500/`. The root entry redirects to `pages/index.html`; page-to-page links stay relative so they work on GitHub Pages project URLs.
 
 ## Firebase
 

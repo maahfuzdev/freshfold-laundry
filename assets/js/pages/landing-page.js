@@ -83,9 +83,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
     // Next button action
     document.getElementById("nextBtn").onclick = function () {
       if (selectedType === "customer") {
-        window.location.href = "/pages/customer-login.html";
+        window.location.href = "customer-login.html";
       } else {
-        window.location.href = "/pages/shopkeeper-login.html";
+        window.location.href = "shopkeeper-login.html";
         modalBg.classList.remove("active");
       }
     };

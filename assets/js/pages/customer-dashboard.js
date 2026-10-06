@@ -211,7 +211,7 @@ import { initializeCustomerHistory } from "../features/customer-history.js";
 
     // Recharge Page Redirect
     window.goToRechargePage = function () {
-      window.location.href = "/pages/wallet.html";
+      window.location.href = "wallet.html";
     };
 
     // Close Modal on Click Outside
@@ -227,7 +227,7 @@ import { initializeCustomerHistory } from "../features/customer-history.js";
 
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        window.location.href = "/pages/customer-login.html";
+        window.location.href = "customer-login.html";
         return;
       }
 
