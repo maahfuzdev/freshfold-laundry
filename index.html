@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <!-- Link to external CSS -->
   <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="index-theme.css" />
 </head>
 
 <body>
@@ -19,48 +20,16 @@
     </div>
 
 
-    <div style="max-width: 440px; margin: 0 auto; font-family: 'Poppins', sans-serif;">
-      <div style="display: flex; gap: 8px;">
-        <input type="text" id="userInput" placeholder="আপনার প্রশ্ন লিখুন..." style="
-        flex: 1;
-        padding: 12px 16px;
-        font-size: 1rem;
-        border: 2px solid #3498db;
-        border-radius: 8px;
-        outline: none;
-        transition: border-color 0.3s ease;
-      " onfocus="this.style.borderColor='#2980b9'" onblur="this.style.borderColor='#3498db'" />
-        <button onclick="handleInput()" style="
-        padding: 12px 18px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: white;
-        background: linear-gradient(90deg, #2980b9 0%, #6dd5fa 100%);
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(41, 128, 185, 0.4);
-        transition: background 0.3s ease;
-        white-space: nowrap;
-      " onmouseover="this.style.background='linear-gradient(90deg, #1c5980 0%, #4ea0d8 100%)'"
-          onmouseout="this.style.background='linear-gradient(90deg, #2980b9 0%, #6dd5fa 100%)'">
-          জবাব দেখাও
+    <div class="chat-container" role="search">
+      <div class="chat-search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="text" id="userInput" placeholder="Ask us anything..." aria-label="Ask a laundry question" />
+        <button class="chat-submit" type="button" onclick="handleInput()" aria-label="Get an answer">
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </button>
       </div>
-
-      <div id="responseBox" style="
-      margin-top: 16px;
-      background: #ecf0f1;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      font-size: 1.1rem;
-      color: #34495e;
-      min-height: 80px;
-      white-space: pre-wrap;
-    "></div>
+      <div id="responseBox" aria-live="polite"></div>
     </div>
-
 
     <div class="nav-links">
 
@@ -86,8 +55,10 @@
         <img src="laundry-background.png" alt="Laundry Hero Image" class="hero-image" />
         <div class="hero-content">
           <div class="hero-texts">
-            <div class="hero-title">Find Your Perfect Laundry Solution</div>
-            <div class="hero-sub">Smart, Fast & Reliable Laundry Services</div>
+            <span class="hero-eyebrow">LAUNDRY DAY, MADE EASY</span>
+            <h1 class="hero-title">Fresh clothes.<br />More time for life.</h1>
+            <p class="hero-sub">Reliable laundry care, picked up from your door and delivered right back.</p>
+            <button class="hero-cta" id="heroSignInBtn" type="button">Get started <i class="fa-solid fa-arrow-right"></i></button>
           </div>
           <div class="hero-icons">
             <div class="hero-icon">🚗<span>Pickup</span></div>
@@ -107,8 +78,8 @@
         <div class="suggestion">Home Pickup</div>
         <div class="suggestion">Subscription Discounts</div>
       </section>
-      <section class="features">
-        <h3>Feature Highlights</h3>
+      <section class="features" aria-labelledby="features-title">
+        <h3 id="features-title">Laundry care that fits your day</h3>
         <table class="features-table">
           <tr>
             <th>ফিচার</th>
@@ -133,7 +104,7 @@
         </table>
       </section>
       <section class="reviews">
-        <h3>Customer Reviews</h3>
+        <h3>Kind words from our customers</h3>
         <div id="reviewList">
           <!-- এখানে কমেন্টগুলো append হবে -->
         </div>
@@ -384,6 +355,9 @@
     const closeModalBtn = document.getElementById("closeModalBtn");
     const modalBg = document.getElementById("modalBg");
     openModalBtn.onclick = () => {
+      modalBg.classList.add("active");
+    };
+    document.getElementById("heroSignInBtn").onclick = () => {
       modalBg.classList.add("active");
     };
     closeModalBtn.onclick = () => {
