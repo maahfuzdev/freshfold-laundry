@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart Laundry App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="../assets/css/landing-page.css" />
+  <link rel="stylesheet" href="../assets/css/landing-page-theme.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-soap"></i>
+      LaundryApp
+    </div>
+
+
+    <div class="chat-container" role="search">
+      <div class="chat-search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="text" id="userInput" placeholder="Ask us anything..." aria-label="Ask a laundry question" />
+        <button class="chat-submit" type="button" onclick="handleInput()" aria-label="Get an answer">
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div id="responseBox" aria-live="polite"></div>
+    </div>
+
+    <div class="nav-links">
+
+      <button class="nav-action" id="openModalBtn"><i class="fa-solid fa-user"></i>Sign In / Sign Up</button>
+    </div>
+  </nav>
+  <div class="container">
+    <aside class="sidebar">
+      <h3><i class="fa-solid fa-bolt"></i>Services</h3>
+      <ul class="categories">
+        <li>Laundry Services</li>
+        <li>Express Delivery</li>
+        <li>Eco Wash</li>
+        <li>Ironing</li>
+        <li>Subscription Plans</li>
+        <li>Offers & Deals</li>
+        <li>Customer Support</li>
+        <li>More Categories...</li>
+      </ul>
+    </aside>
+    <main class="main">
+      <section class="hero">
+        <img src="../assets/images/laundry/laundry-background.png" alt="Laundry Hero Image" class="hero-image" />
+        <div class="hero-content">
+          <div class="hero-texts">
+            <span class="hero-eyebrow">LAUNDRY DAY, MADE EASY</span>
+            <h1 class="hero-title">Fresh clothes.<br />More time for life.</h1>
+            <p class="hero-sub">Reliable laundry care, picked up from your door and delivered right back.</p>
+            <button class="hero-cta" id="heroSignInBtn" type="button">Get started <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+          <div class="hero-icons">
+            <div class="hero-icon">🚗<span>Pickup</span></div>
+            <div class="hero-icon">🧺<span>Washing</span></div>
+            <div class="hero-icon">🚚<span>Delivery</span></div>
+            <div class="hero-icon">📱<span>Tracking</span></div>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="suggestions">
+        <div class="suggestion">Laundry Offers</div>
+        <div class="suggestion">Express Delivery</div>
+        <div class="suggestion">Eco-Friendly Wash</div>
+        <div class="suggestion">Ironing Packages</div>
+        <div class="suggestion">Home Pickup</div>
+        <div class="suggestion">Subscription Discounts</div>
+      </section>
+      <section class="features" aria-labelledby="features-title">
+        <h3 id="features-title">Laundry care that fits your day</h3>
+        <table class="features-table">
+          <tr>
+            <th>ফিচার</th>
+            <th>বর্ণনা</th>
+          </tr>
+          <tr>
+            <td>Smart Pickup</td>
+            <td>ঘরে বসেই অর্ডার ও সংগ্রহ</td>
+          </tr>
+          <tr>
+            <td>Live Tracking</td>
+            <td>অর্ডার কোথায়, লাইভ আপডেট</td>
+          </tr>
+          <tr>
+            <td>Eco Wash</td>
+            <td>পরিবেশবান্ধব পরিষেবা</td>
+          </tr>
+          <tr>
+            <td>Fast Delivery</td>
+            <td>নির্ভরযোগ্য দ্রুত ডেলিভারি</td>
+          </tr>
+        </table>
+      </section>
+      <section class="reviews">
+        <h3>Kind words from our customers</h3>
+        <div id="reviewList">
+          <!-- এখানে কমেন্টগুলো append হবে -->
+        </div>
+      </section>
+
+      <section class="how-it-works">
+        <h3>কিভাবে কাজ করে</h3>
+        <ol>
+          <li>অর্ডার দিন: ওয়েব/অ্যাপে অর্ডার করুন</li>
+          <li>পিকআপ: আমাদের টিম সংগ্রহ করবে</li>
+          <li>প্রসেসিং: স্মার্ট ওয়াশিং ও ড্রাইং</li>
+          <li>ডেলিভারি: নির্দিষ্ট সময়ে ডেলিভারি</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">
+    <div>
+      Social Media আইকন | Terms & Conditions | Privacy Policy | Contact
+    </div>
+  </footer>
+
+  <!-- Sign In/Sign Up Modal -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <button class="close-modal" id="closeModalBtn">&times;</button>
+      <h2>Sign In / Sign Up</h2>
+      <div class="user-type-group" id="userTypeGroup">
+        <button type="button" class="user-type-btn active" data-type="customer">কাস্টমার</button>
+        <button type="button" class="user-type-btn" data-type="shopkeeper">দোকান মালিক</button>
+      </div>
+      <button class="submit-btn" id="nextBtn">পরবর্তী ধাপ</button>
+    </div>
+  </div>
+
+  <script type="module" src="../assets/js/pages/landing-page.js"></script>
+</body>
+
+</html>

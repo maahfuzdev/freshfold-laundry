@@ -215,7 +215,7 @@ body {
 
 .sidebar {
   min-width: 240px;
-  background: url('laundry-aside.png') no-repeat center center / cover;
+  background: url('../images/laundry/laundry-aside.png') no-repeat center center / cover;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(10, 110, 189, 0.05);
   padding: 26px 0;

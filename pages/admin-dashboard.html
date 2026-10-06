@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="../assets/js/pages/admin-dashboard.js"></script>
+
+  <link rel="stylesheet" href="../assets/css/pages/admin-dashboard.css" />
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+  <div class="flex flex-col md:flex-row">
+    <!-- Sidebar -->
+    <div class="w-full md:w-64 bg-[#1e272e] text-white p-6 shadow-lg">
+      <h2 class="text-2xl font-bold mb-6 tracking-wide">🔧 Admin Panel</h2>
+      <nav class="space-y-2">
+        <button onclick="toggleSection('priceSection')"
+          class="w-full text-left py-2 px-4 bg-[#2f3640] rounded hover:bg-[#3d3d3d]">
+          Set Prices
+        </button>
+        <button onclick="toggleSection('orderSection')"
+          class="w-full text-left py-2 px-4 bg-[#2f3640] rounded hover:bg-[#3d3d3d]">
+          Orders
+        </button>
+        <button id="userBtn" class="w-full text-left py-2 px-4 bg-[#2f3640] rounded hover:bg-[#3d3d3d]"
+          title="Admin Email">User
+
+        </button>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 space-y-10">
+      <!-- Product Pricing Section -->
+      <div id="priceSection">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">🧺 Set Product Prices</h1>
+        <div class="flex flex-wrap gap-6 justify-start" id="productList"></div>
+
+        <!-- Product Card Template -->
+        <template id="productTemplate">
+          <div class="card bg-white rounded-2xl shadow-md p-4 w-full sm:w-[300px] flex items-start flex-col gap-2">
+            <div class="flex items-center gap-4 w-full">
+              <img class="product-img w-20 h-20 rounded-lg border object-cover" src="" alt="Product" />
+              <div class="flex-1">
+                <h3 class="product-name text-lg font-semibold text-gray-800"></h3>
+                <p class="current-price text-sm text-gray-600">
+                  ৳ <span>0</span>
+                </p>
+              </div>
+            </div>
+            <div class="price-input hidden w-full">
+              <input type="number" class="price-field mt-2 p-2 border rounded w-full" placeholder="Enter New Price" />
+              <button class="set-price-btn mt-2 bg-blue-600 text-white px-4 py-1 rounded">
+                Finish
+              </button>
+            </div>
+            <button class="edit-btn text-sm text-blue-600 hover:underline self-end">
+              Set Price
+            </button>
+          </div>
+        </template>
+      </div>
+
+      <!-- Summary Section -->
+      <div id="summarySection" class="mb-6 grid grid-cols-4 gap-6">
+        <div class="bg-white rounded-xl shadow p-4 text-center">
+          <h3 class="text-gray-600 text-sm">Total Orders</h3>
+          <p id="totalOrders" class="text-3xl font-bold text-blue-600">0</p>
+        </div>
+        <div class="bg-white rounded-xl shadow p-4 text-center">
+          <h3 class="text-gray-600 text-sm">Total Income</h3>
+          <p id="totalIncome" class="text-3xl font-bold text-green-600">৳0</p>
+        </div>
+        <div class="bg-white rounded-xl shadow p-4 text-center">
+          <h3 class="text-gray-600 text-sm">Pending Orders</h3>
+          <p id="pendingCount" class="text-3xl font-bold text-yellow-500">0</p>
+        </div>
+        <div class="bg-white rounded-xl shadow p-4 text-center">
+          <h3 class="text-gray-600 text-sm">Completed Orders</h3>
+          <p id="completedCount" class="text-3xl font-bold text-green-700">0</p>
+        </div>
+      </div>
+
+
+      <!-- Order List -->
+      <div id="orderSection" style="display: none">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">📦 Orders Overview</h2>
+        <div class="overflow-x-auto bg-white rounded-2xl shadow-lg">
+          <input type="text" id="searchBox" placeholder="Search orders..." class="p-3 border rounded m-4 w-full" />
+          <table class="min-w-full">
+            <thead>
+              <tr>
+                <th class="py-2 px-4 border-b">Name</th>
+                <th class="py-2 px-4 border-b">Phone</th>
+                <th class="py-2 px-4 border-b">Order Date</th>
+                <th class="py-2 px-4 border-b">Order Time</th>
+                <th class="py-2 px-4 border-b">Address</th>
+                <th class="py-2 px-4 border-b">Items</th>
+                <th class="py-2 px-4 border-b">Status</th>
+                <th class="py-2 px-4 border-b">Delete</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

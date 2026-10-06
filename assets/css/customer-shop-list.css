@@ -1,0 +1,43 @@
+/*shoplist styles*/
+.shopListContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.shopListContainer h3 {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #373e51;
+}
+
+.shopListContainer button {
+  background: #bfc4cb;
+  color: #fff;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.shopListContainer button:hover {
+  background: #82a2e7;
+  transform: scale(1.02);
+}
+@media (max-width: 600px) {
+  .shopListContainer {
+    padding: 12px;
+  }
+
+  .shopListContainer button {
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+}

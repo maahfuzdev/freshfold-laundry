@@ -1,68 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laundry Smart | Login & Register</title>
-  <link rel="stylesheet" href="login.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-
-<body>
-  <div class="container">
-    <div class="tab-header">
-      <div class="tab-link active" data-tab="login">Login</div>
-      <div class="tab-link" data-tab="register">Register</div>
-    </div>
-
-    <!-- Login -->
-    <div class="tab-content active" id="login">
-      <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
-      <form id="loginForm">
-        <div class="input-group">
-          <i class="fas fa-envelope"></i>
-          <input type="email" id="loginEmail" placeholder="Enter Email" required>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input type="password" id="loginPassword" placeholder="Enter Password" required>
-        </div>
-        <button type="submit">Login</button>
-        <div class="error" id="loginError"></div>
-        <p>Don't have an account? <a href="#" data-tab="register">Register Now</a></p>
-      </form>
-    </div>
-
-    <!-- Register -->
-    <div class="tab-content" id="register">
-      <h2><i class="fas fa-user-plus"></i> Register</h2>
-      <form id="registerForm">
-        <div class="input-group">
-          <i class="fas fa-user"></i>
-          <input type="text" id="regName" placeholder="Full Name" required>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-envelope"></i>
-          <input type="email" id="regEmail" placeholder="Email Address" required>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-phone"></i>
-          <input type="text" id="regPhone" placeholder="Phone Number" required>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input type="password" id="regPassword" placeholder="Create Password" required>
-        </div>
-        <button type="submit">Register</button>
-        <p>Already have an account? <a href="#" data-tab="login">Login Here</a></p>
-      </form>
-    </div>
-  </div>
-
-  <!-- Firebase and App Logic -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     import { getFirestore, doc, setDoc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -180,14 +116,9 @@
 
         document.getElementById('loginError').textContent = "";
         alert("✅ Login successful!");
-        window.location.href = "user.html"; // redirect after login
+        window.location.href = "/pages/customer-dashboard.html"; // redirect after login
 
       } catch (error) {
         document.getElementById('loginError').textContent = "❌ " + error.message;
       }
     });
-
-  </script>
-</body>
-
-</html>

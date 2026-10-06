@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Laundry Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/css/customer-dashboard.css">
+  <link rel="stylesheet" href="../assets/css/customer-shop-list.css">
+  <link rel="stylesheet" href="../assets/css/customer-feedback.css">
+
+</head>
+
+<body>
+  <div class="navbar">
+    <div>
+
+
+      <a href="#history" ">History</a>
+      <a href=" #" class="nav-link"><i class="fa-solid fa-tags"></i>Offers</a>
+      <a href="#" class="nav-link" id="toggleCommentBtn"><i class="fa-solid fa-phone"></i> Comments</a>
+      <!-- এখানেই নিচে commentSection রাখো -->
+      <div id="commentSection">
+        <form id="commentForm">
+          <input type="text" id="userName" placeholder="Your Name" required />
+          <input type="text" id="userLocation" placeholder="Your Location" required />
+          <textarea id="userComment" placeholder="Write your comment..." required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <div id="userEmailDisplay" style="cursor:pointer; font-weight:bold; color:#2980b9; margin-left:12px;"></div>
+    </div>
+  </div>
+  <div id="balanceSection">
+    <div>
+      💰 ব্যালেন্স: <span id="userBalance">Loading...</span> ৳
+    </div>
+    <button onclick="goToRechargePage()">🔄 রিচার্জ করুন</button>
+  </div>
+  <section id="landing">
+    <h1>Welcome to Our Laundry Service</h1>
+    <p>Clean clothes, happy life!</p>
+  </section>
+  <section id="service" class="container">
+    <div class="sidebar">
+      <div class="shopListContainer"></div>
+    </div>
+
+
+    <div class="main">
+      <p>Loading products...</p>
+    </div>
+  </section>
+  <div class="submit-area">
+    <button class="submit-btn" onclick="generateBill()">Select Shop & Submit</button>
+  </div>
+  <section id="history">
+    <h2>🧺 Past Orders</h2>
+
+    <div id="userOrders"></div>
+    <div id="orderlist"></div>
+  </section>
+  <div id="billModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('billModal').style.display='none'">&times;</span>
+      <h2>🧾 Order Bill</h2>
+      <input type="text" id="customerName" class="input-field" placeholder="Enter your name">
+      <input type="text" id="customerPhone" class="input-field" placeholder="Enter mobile number">
+      <input type="text" id="customerAddress" class="input-field" placeholder="Enter address">
+      <div id="billDetails"></div>
+      <button class="submit-btn" onclick="submitOrder()">Confirm & Submit Order</button>
+    </div>
+  </div>
+
+
+  <script type="module" src="../assets/js/pages/customer-dashboard.js"></script>
+</body>
+
+</html>

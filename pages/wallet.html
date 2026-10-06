@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Wallet System with Firebase</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script type="module" src="../assets/js/payments/wallet-payments.js"></script>
+
+
+
+  <link rel="stylesheet" href="../assets/css/payments/wallet.css" />
+</head>
+
+<body>
+  <!-- [Your existing HTML from <body> including .wallet-card etc.] -->
+  <div class="wallet-card">
+    <div class="header">
+      <div class="icon">💳</div>
+      <h2>Wallet System</h2>
+    </div>
+
+    <div class="balance-section">
+      Balance: <strong>৳<span id="balance">0.0</span></strong>
+    </div>
+
+    <label for="amount">Recharge Amount</label>
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <button onclick="showPaymentOptions()">Recharge</button>
+
+    <div id="paymentOptions" class="payment-options">
+      <div class="payment-option" onclick="selectPayment('bKash')">
+        <img src="../assets/images/payments/bksh.png" alt="bKash"> <span>bKash</span>
+      </div>
+      <div class="payment-option" onclick="selectPayment('Nagad')">
+        <img src="../assets/images/payments/nagad.png" alt="Nagad"> <span>Nagad</span>
+      </div>
+      <div class="payment-option" onclick="selectPayment('Rocket')">
+        <img src="../assets/images/payments/rocket.png" alt="Rocket"> <span>Rocket</span>
+      </div>
+      <div class="payment-option" onclick="selectPayment('DBBL')">
+        <img src="../assets/images/payments/dbbl.png" alt="DBBL"> <span>DBBL</span>
+      </div>
+      <div class="payment-option" onclick="selectPayment('Bank Account')">
+        <img src="https://cdn-icons-png.flaticon.com/512/4341/4341139.png" alt="Bank"> <span>Bank Account</span>
+      </div>
+    </div>
+
+    <div id="bkashForm" class="bkash-form">
+      <h3><img src="../assets/images/payments/bksh.png" alt="bKash" style="width:30px; vertical-align:middle;"> bKash Payment</h3>
+      <input type="text" id="bkashNumber" placeholder="e.g. 01XXXXXXXXX">
+      <button class="confirm" onclick="confirmBkash()">Confirm</button>
+      <button class="cancel" onclick="cancelBkash()">Cancel</button>
+    </div>
+
+
+
+    <!-- OTP input step (after Confirm) -->
+    <div id="otpSection" class="bkash-form" style="display: none;">
+      <h3>Enter OTP</h3>
+      <p>We’ve sent a 6-digit OTP to your number.</p>
+      <input type="text" id="otpInput" placeholder="Enter OTP">
+      <button class="confirm" onclick="verifyOtp()">Verify</button>
+      <button class="cancel" onclick="cancelOtp()">Cancel</button>
+    </div>
+
+    <div class="history">
+      <h3>Transaction History</h3>
+      <ul id="history">
+
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>

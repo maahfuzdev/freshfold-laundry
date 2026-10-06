@@ -1,0 +1,143 @@
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .wallet-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header .icon {
+      font-size: 28px;
+      margin-right: 10px;
+      color: #2e7d32;
+    }
+
+    h2 {
+      font-size: 22px;
+      color: #333;
+    }
+
+    .balance-section {
+      background: #e8f5e9;
+      padding: 15px;
+      border-left: 5px solid #43a047;
+      margin-bottom: 20px;
+      border-radius: 6px;
+    }
+
+    input,
+    button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    input {
+      border: 1px solid #ccc;
+    }
+
+    button {
+      border: none;
+      background: #2e7d32;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1b5e20;
+    }
+
+    .payment-options,
+    .bkash-form {
+      display: none;
+      margin-top: 15px;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fafafa;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .payment-option:hover {
+      background: #f1f1f1;
+    }
+
+    .payment-option img {
+      width: 40px;
+      height: auto;
+    }
+
+    .bkash-form {
+      background: #e91e63;
+      padding: 20px;
+      border-radius: 8px;
+      color: white;
+    }
+
+    .bkash-form h3 {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .bkash-form input {
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    .bkash-form .confirm {
+      background: #c2185b;
+    }
+
+    .bkash-form .cancel {
+      background: #9e9e9e;
+    }
+
+    .history {
+      margin-top: 25px;
+    }
+
+    .history h3 {
+      margin-bottom: 10px;
+    }
+
+    .history ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .history li {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }

@@ -43,7 +43,7 @@ body {
 .nav-action:hover, .hero-cta:hover { background: var(--brand-dark); color: #fff; }
 
 .container { max-width: 1320px; gap: 30px; margin-top: 32px; padding: 0 28px; }
-.sidebar { flex: 0 0 224px; min-width: 0; padding: 25px 0; border-radius: 16px; background-image: linear-gradient(180deg, rgba(15, 49, 53, .80), rgba(15, 49, 53, .91)), url("laundry-aside.png"); box-shadow: 0 12px 32px rgba(24, 52, 61, .08); }
+.sidebar { flex: 0 0 224px; min-width: 0; padding: 25px 0; border-radius: 16px; background-image: linear-gradient(180deg, rgba(15, 49, 53, .80), rgba(15, 49, 53, .91)), url("../images/laundry/laundry-aside.png"); box-shadow: 0 12px 32px rgba(24, 52, 61, .08); }
 .sidebar h3 { color: #fff; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; }
 .sidebar h3 i { margin-right: 7px; color: #a7ded1; }
 .categories { padding: 0 18px; }

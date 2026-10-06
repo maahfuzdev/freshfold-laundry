@@ -1,81 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Laundry Service</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-  <link rel="stylesheet" href="user.css">
-
-</head>
-
-<body>
-  <div class="navbar">
-    <div>
-
-
-      <a href="#history" ">History</a>
-      <a href=" #" class="nav-link"><i class="fa-solid fa-tags"></i>Offers</a>
-      <a href="#" class="nav-link" id="toggleCommentBtn"><i class="fa-solid fa-phone"></i> Comments</a>
-      <!-- এখানেই নিচে commentSection রাখো -->
-      <div id="commentSection">
-        <form id="commentForm">
-          <input type="text" id="userName" placeholder="Your Name" required />
-          <input type="text" id="userLocation" placeholder="Your Location" required />
-          <textarea id="userComment" placeholder="Write your comment..." required></textarea>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      <div id="userEmailDisplay" style="cursor:pointer; font-weight:bold; color:#2980b9; margin-left:12px;"></div>
-    </div>
-  </div>
-  <div id="balanceSection">
-    <div>
-      💰 ব্যালেন্স: <span id="userBalance">Loading...</span> ৳
-    </div>
-    <button onclick="goToRechargePage()">🔄 রিচার্জ করুন</button>
-  </div>
-  <section id="landing">
-    <h1>Welcome to Our Laundry Service</h1>
-    <p>Clean clothes, happy life!</p>
-  </section>
-  <section id="service" class="container">
-    <div class="sidebar">
-      <div class="shopListContainer"></div>
-    </div>
-
-
-    <div class="main">
-      <p>Loading products...</p>
-    </div>
-  </section>
-  <div class="submit-area">
-    <button class="submit-btn" onclick="generateBill()">Select Shop & Submit</button>
-  </div>
-  <section id="history">
-    <h2>🧺 Past Orders</h2>
-
-    <div id="userOrders"></div>
-    <div id="orderlist"></div>
-  </section>
-  <div id="billModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="document.getElementById('billModal').style.display='none'">&times;</span>
-      <h2>🧾 Order Bill</h2>
-      <input type="text" id="customerName" class="input-field" placeholder="Enter your name">
-      <input type="text" id="customerPhone" class="input-field" placeholder="Enter mobile number">
-      <input type="text" id="customerAddress" class="input-field" placeholder="Enter address">
-      <div id="billDetails"></div>
-      <button class="submit-btn" onclick="submitOrder()">Confirm & Submit Order</button>
-    </div>
-  </div>
-
-
-  <script type="module">
-    // Firebase Imports
+import { initializeCustomerHistory } from "../features/customer-history.js";
+// Firebase Imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, doc, getDoc, updateDoc, increment, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, addDoc, doc, getDoc, updateDoc, increment, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     // Firebase Config
@@ -285,7 +211,7 @@
 
     // Recharge Page Redirect
     window.goToRechargePage = function () {
-      window.location.href = "walet.html";
+      window.location.href = "/pages/wallet.html";
     };
 
     // Close Modal on Click Outside
@@ -297,157 +223,11 @@
     };
 
     // Email Toggle
-    function displayEmailToggle(email) {
-      const emailContainer = document.getElementById('userEmailDisplay');
-      if (!emailContainer) return;
-      emailContainer.textContent = email.charAt(0).toUpperCase();
-      emailContainer.title = "Click to show email";
-      emailContainer.onclick = () => {
-        if (emailContainer.textContent.length === 1) {
-          emailContainer.textContent = email;
-          emailContainer.title = "Click to hide email";
-        } else {
-          emailContainer.textContent = email.charAt(0).toUpperCase();
-          emailContainer.title = "Click to show email";
-        }
-      };
-    }
+    const { displayEmailToggle, loadUserOrders } = initializeCustomerHistory(db, auth);
 
-    // Load user orders
-
-    async function loadUserOrders(email) {
-      if (!email) {
-        console.error("❌ Email is undefined!");
-        return;
-      }
-
-      console.log("Inside loadUserOrders, email:", email); //
-      const orderListDiv = document.getElementById("userOrders");
-      orderListDiv.innerHTML = "Loading...";
-
-      try {
-        console.log("Loading orders for email:", email);
-        const q = query(collection(db, "orders"), where("email", "==", email));
-        const snapshot = await getDocs(q);
-
-        if (snapshot.empty) {
-          orderListDiv.innerHTML = `<p style="color: red;">আপনার কোনো অর্ডার নেই।</p>`;
-          return;
-        }
-
-        let html = "";
-        snapshot.forEach((doc) => {
-          const order = doc.data();
-          const readableDate = order.timestamp?.toDate().toLocaleString("bn-BD", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true
-          });
-
-
-          const itemListHTML = (order.items || [])
-            .map(item => `<li>${item.qty} × ${item.name} — ৳${item.subtotal}</li>`)
-            .join('');
-
-          html += `
-  <div class="history-item">
-    <div class="order-header">
-      <span class="order-date">${readableDate}</span>
-      <span class="order-total">৳${order.grandTotal}</span>
-    </div>
-
-    <div class="order-info">
-      <p><strong>👤 Name:</strong> ${order.name}</p>
-      <p><strong>📞 Phone:</strong> ${order.phone || 'N/A'}</p>
-      <p><strong>🏠 Address:</strong> ${order.address || 'N/A'}</p>
-    </div>
-
-    <div class="order-items">
-      <strong>📦 Items:</strong>
-      <ul class="item-list">${itemListHTML}</ul>
-    </div>
-  </div>
-`;
-        });
-
-        orderListDiv.innerHTML = html;
-      } catch (err) {
-        orderListDiv.innerHTML = `<p style="color: red;">অর্ডার লোড করতে সমস্যা হয়েছে!</p>`;
-        console.error("loadUserOrders error:", err);
-      }
-    }
-
-
-
-    // History টগল করার জন্য
-    const historySection = document.getElementById("history");
-    const historyLink = document.querySelector('a[href="#history"]');
-
-    historyLink.addEventListener("click", function (e) {
-      e.preventDefault(); // Prevent jump
-      if (historySection.style.display === "none" || !historySection.style.display) {
-        historySection.style.display = "block";
-        historySection.scrollIntoView({ behavior: "smooth" });
-      } else {
-        historySection.style.display = "none";
-      }
-    });
-
-    // Default এ লুকানো রাখো
-    document.addEventListener("DOMContentLoaded", () => {
-      historySection.style.display = "none";
-    });
-
-    //comment section
-
-    const toggleCommentBtn = document.getElementById('toggleCommentBtn');
-    const commentSection = document.getElementById('commentSection');
-    const commentForm = document.getElementById('commentForm');
-
-    toggleCommentBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      commentSection.classList.toggle('show');
-    });
-
-    commentForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById('userName').value.trim();
-      const location = document.getElementById('userLocation').value.trim();
-      const comment = document.getElementById('userComment').value.trim();
-      const user = auth.currentUser;
-      const email = user?.email || "Anonymous";
-
-      if (!name || !location || !comment) return;
-
-      await addDoc(collection(db, "userComments"), {
-        email,
-        name,
-        location,
-        comment,
-        timestamp: new Date()
-      });
-
-      commentForm.reset();
-      commentSection.classList.remove('show');
-      alert("Thank you for your comment!");
-    });
-
-
-
-
-
-
-
-
-
-    // ইউজার লগইন থাকলে সেট করো
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        window.location.href = "login.html";
+        window.location.href = "/pages/customer-login.html";
         return;
       }
 
@@ -465,9 +245,3 @@
       displayEmailToggle(email);
 
     });
-
-
-  </script>
-</body>
-
-</html>
