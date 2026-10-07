@@ -1,65 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer Login | FreshFold Laundry</title>
+  <title>Customer Access | FreshFold Laundry</title>
   <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="../assets/css/authentication.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
+  <!-- Brand Header -->
+  <a href="index.html" class="auth-header-brand">
+    <i class="fa-solid fa-soap"></i>
+    <span>FreshFold Laundry</span>
+  </a>
+
   <div class="container">
-    <div class="tab-header">
-      <div class="tab-link active" data-tab="login">Login</div>
-      <div class="tab-link" data-tab="register">Register</div>
+    <div class="tab-header" role="tablist">
+      <div class="tab-link active" data-tab="login" role="tab" aria-selected="true">লগইন</div>
+      <div class="tab-link" data-tab="register" role="tab" aria-selected="false">রেজিস্টার</div>
     </div>
 
-    <!-- Login -->
-    <div class="tab-content active" id="login">
-      <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+    <!-- Login Tab -->
+    <div class="tab-content active" id="login" role="tabpanel">
+      <h2><i class="fas fa-sign-in-alt"></i> কাস্টমার লগইন</h2>
       <form id="loginForm">
         <div class="input-group">
-          <i class="fas fa-envelope"></i>
-          <input type="email" id="loginEmail" placeholder="Enter Email" required>
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          <input type="email" id="loginEmail" placeholder="আপনার ইমেইল ঠিকানা" required autocomplete="email">
         </div>
         <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input type="password" id="loginPassword" placeholder="Enter Password" required>
+          <i class="fas fa-lock" aria-hidden="true"></i>
+          <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড লিখুন" required autocomplete="current-password">
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">লগইন করুন</button>
         <div class="error" id="loginError"></div>
-        <p>Don't have an account? <a href="#" data-tab="register">Register Now</a></p>
+        <p>অ্যাকাউন্ট নেই? <a href="#" data-tab="register">নতুন রেজিস্ট্রেশন করুন</a></p>
       </form>
     </div>
 
-    <!-- Register -->
-    <div class="tab-content" id="register">
-      <h2><i class="fas fa-user-plus"></i> Register</h2>
+    <!-- Register Tab -->
+    <div class="tab-content" id="register" role="tabpanel">
+      <h2><i class="fas fa-user-plus"></i> নতুন অ্যাকাউন্ট</h2>
       <form id="registerForm">
         <div class="input-group">
-          <i class="fas fa-user"></i>
-          <input type="text" id="regName" placeholder="Full Name" required>
+          <i class="fas fa-user" aria-hidden="true"></i>
+          <input type="text" id="regName" placeholder="আপনার সম্পূর্ণ নাম" required autocomplete="name">
         </div>
         <div class="input-group">
-          <i class="fas fa-envelope"></i>
-          <input type="email" id="regEmail" placeholder="Email Address" required>
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          <input type="email" id="regEmail" placeholder="ইমেইল ঠিকানা" required autocomplete="email">
         </div>
         <div class="input-group">
-          <i class="fas fa-phone"></i>
-          <input type="text" id="regPhone" placeholder="Phone Number" required>
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <input type="tel" id="regPhone" placeholder="মোবাইল নম্বর (০১XXXXXXXXX)" required autocomplete="tel">
         </div>
         <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input type="password" id="regPassword" placeholder="Create Password" required>
+          <i class="fas fa-lock" aria-hidden="true"></i>
+          <input type="password" id="regPassword" placeholder="পাসওয়ার্ড তৈরি করুন (কমপক্ষে ৬ অক্ষর)" required autocomplete="new-password">
         </div>
-        <button type="submit">Register</button>
-        <p>Already have an account? <a href="#" data-tab="login">Login Here</a></p>
+        <button type="submit">রেজিস্ট্রেশন সম্পূর্ণ করুন</button>
+        <div class="error" id="registerError"></div>
+        <div class="success" id="registerSuccess"></div>
+        <p>ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="#" data-tab="login">লগইন করুন</a></p>
       </form>
     </div>
   </div>
+
+  <a href="index.html" class="back-home">
+    <i class="fa-solid fa-arrow-left"></i> হোমপেজে ফিরে যান
+  </a>
 
   <!-- Firebase and App Logic -->
   <script type="module" src="../assets/js/auth/customer-auth.js"></script>

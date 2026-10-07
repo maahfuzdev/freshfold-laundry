@@ -1,114 +1,135 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCrPUFMdKuxMDV16RIu833yvzw-a8WxCSg",
-      authDomain: "smart-laundry-2d523.firebaseapp.com",
-      projectId: "smart-laundry-2d523",
-      storageBucket: "smart-laundry-2d523.appspot.com",
-      messagingSenderId: "7431686498",
-      appId: "1:7431686498:web:d4d1a4377327c7eafac43b",
-      measurementId: "G-K6W312NY4M"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyCrPUFMdKuxMDV16RIu833yvzw-a8WxCSg",
+  authDomain: "smart-laundry-2d523.firebaseapp.com",
+  projectId: "smart-laundry-2d523",
+  storageBucket: "smart-laundry-2d523.appspot.com",
+  messagingSenderId: "7431686498",
+  appId: "1:7431686498:web:d4d1a4377327c7eafac43b",
+  measurementId: "G-K6W312NY4M"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    // Tab Switch
-    document.querySelectorAll('[data-tab]').forEach(tab => {
-      tab.addEventListener('click', function () {
-        const target = this.getAttribute('data-tab');
-        document.querySelectorAll('.tab-link').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-        document.querySelector('.tab-link[data-tab="' + target + '"]').classList.add('active');
-        document.getElementById(target).classList.add('active');
-      });
+// Tab Switching
+document.querySelectorAll('[data-tab]').forEach(tab => {
+  tab.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = this.getAttribute('data-tab');
+    document.querySelectorAll('.tab-link').forEach(el => {
+      el.classList.remove('active');
+      el.setAttribute('aria-selected', 'false');
     });
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
 
-    // Helper: Email to Firestore-safe doc id (remove . and @)
-    function emailToDocId(email) {
-      return email.replace(/\./g, "_").replace(/@/g, "_at_");
+    const activeHeaderTab = document.querySelector(`.tab-link[data-tab="${target}"]`);
+    if (activeHeaderTab) {
+      activeHeaderTab.classList.add('active');
+      activeHeaderTab.setAttribute('aria-selected', 'true');
     }
 
-    // Register Handler
-    document.getElementById('registerForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      document.getElementById('registerError').textContent = '';
-      document.getElementById('registerSuccess').textContent = '';
+    const targetContent = document.getElementById(target);
+    if (targetContent) {
+      targetContent.classList.add('active');
+    }
+  });
+});
 
-      const shopName = document.getElementById('shopName').value.trim();
-      const email = document.getElementById('regEmail').value.trim();
-      const password = document.getElementById('regPassword').value;
-      const shopPlace = document.getElementById('shopPlace').value.trim();
+// Helper: Email to Firestore-safe doc id
+function emailToDocId(email) {
+  return email.replace(/\./g, "_").replace(/@/g, "_at_");
+}
 
-      if (shopName.length < 3) {
-        document.getElementById('registerError').textContent = "Shop name must be at least 3 characters.";
-        return;
-      }
-      if (shopPlace.length < 3) {
-        document.getElementById('registerError').textContent = "Shop location must be at least 3 characters.";
-        return;
-      }
-      if (password.length < 6) {
-        document.getElementById('registerError').textContent = "Password must be at least 6 characters.";
-        return;
-      }
+// Registration Handler
+document.getElementById('registerForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const errorEl = document.getElementById('registerError');
+  const successEl = document.getElementById('registerSuccess');
+  if (errorEl) errorEl.textContent = '';
+  if (successEl) successEl.textContent = '';
 
-      const userQuery = query(collection(db, "users"), where("email", "==", email));
-      const userSnapshot = await getDocs(userQuery);
+  const shopName = document.getElementById('shopName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value;
+  const shopPlace = document.getElementById('shopPlace').value.trim();
 
-      if (!userSnapshot.empty) {
-        alert("এই ইমেইলটি আগে থেকেই একটি সাধারণ ইউজার হিসেবে নিবন্ধিত। অনুগ্রহ করে অন্য ইমেইল ব্যবহার করুন।");
-        return;
-      }
+  if (shopName.length < 3) {
+    if (errorEl) errorEl.textContent = "❌ দোকানের নাম কমপক্ষে ৩ অক্ষরের হতে হবে।";
+    return;
+  }
+  if (shopPlace.length < 3) {
+    if (errorEl) errorEl.textContent = "❌ এলাকা বা লোকেশন কমপক্ষে ৩ অক্ষরের হতে হবে।";
+    return;
+  }
+  if (password.length < 6) {
+    if (errorEl) errorEl.textContent = "❌ পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।";
+    return;
+  }
 
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        // Use email as doc id (safe)
-        const docId = emailToDocId(email);
-        await setDoc(doc(db, "shopowners", docId), {
-          shopName,
-          email,
-          shopPlace,
-          createdAt: new Date()
-        });
-        document.getElementById('registerSuccess').textContent = "✅ Registration successful! Please login.";
-        document.getElementById('registerForm').reset();
-      } catch (error) {
-        document.getElementById('registerError').textContent = "❌ " + error.message;
-      }
+  try {
+    // Check if email already registered as customer
+    const userQuery = query(collection(db, "users"), where("email", "==", email));
+    const userSnapshot = await getDocs(userQuery);
+
+    if (!userSnapshot.empty) {
+      if (errorEl) errorEl.textContent = "❌ এই ইমেইলটি সাধারণ কাস্টমার হিসেবে নিবন্ধিত। অন্য ইমেইল ব্যবহার করুন।";
+      return;
+    }
+
+    // Create Firebase Auth Account
+    await createUserWithEmailAndPassword(auth, email, password);
+    const docId = emailToDocId(email);
+
+    // Save Shop Owner Details
+    await setDoc(doc(db, "shopowners", docId), {
+      shopName,
+      email,
+      shopPlace,
+      createdAt: new Date()
     });
 
-    // Login Handler
-    document.getElementById('loginForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      document.getElementById('loginError').textContent = '';
+    if (successEl) successEl.textContent = "✅ দোকান সফলভাবে নিবন্ধিত হয়েছে! লগইন করুন।";
+    document.getElementById('registerForm').reset();
 
-      const email = document.getElementById('loginEmail').value.trim();
-      const password = document.getElementById('loginPassword').value;
+    setTimeout(() => {
+      document.querySelector('.tab-link[data-tab="login"]')?.click();
+    }, 1500);
 
-      try {
-        // Step 1: Shopowner হিসেবে email আছে কি না তা চেক করো
-        const shopRef = collection(db, "shopowners");
-        const q = query(shopRef, where("email", "==", email));
-        const snapshot = await getDocs(q);
+  } catch (error) {
+    if (errorEl) errorEl.textContent = "❌ " + error.message;
+  }
+});
 
-        if (snapshot.empty) {
-          // যদি shopowners এ email না থাকে
-          document.getElementById('loginError').textContent = "❌ You are not a registered shop owner.";
-          return;
-        }
+// Login Handler
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const errorEl = document.getElementById('loginError');
+  if (errorEl) errorEl.textContent = '';
 
-        // Step 2: যদি থাকেই, তাহলে Firebase Auth দিয়ে সাইন ইন করো
-        await signInWithEmailAndPassword(auth, email, password);
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
 
-        document.getElementById('loginError').textContent = "";
-        alert("✅ Login successful!");
-        window.location.href = "admin-dashboard.html"; // redirect after login
+  try {
+    // Verify user exists in shopowners collection
+    const shopRef = collection(db, "shopowners");
+    const q = query(shopRef, where("email", "==", email));
+    const snapshot = await getDocs(q);
 
-      } catch (error) {
-        document.getElementById('loginError').textContent = "❌ " + error.message;
-      }
-    });
+    if (snapshot.empty) {
+      if (errorEl) errorEl.textContent = "❌ এই ইমেইলে কোনো দোকানদার অ্যাকাউন্ট পাওয়া যায়নি।";
+      return;
+    }
+
+    // Authenticate with Firebase Auth
+    await signInWithEmailAndPassword(auth, email, password);
+    window.location.href = "admin-dashboard.html";
+
+  } catch (error) {
+    if (errorEl) errorEl.textContent = "❌ " + error.message;
+  }
+});

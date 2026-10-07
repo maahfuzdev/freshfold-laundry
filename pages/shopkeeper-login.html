@@ -1,68 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shopkeeper Login | FreshFold Laundry</title>
+  <title>Shop Partner Access | FreshFold Laundry</title>
   <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="../assets/css/authentication.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css/auth/shopkeeper-auth.css" />
 </head>
 
 <body>
+  <!-- Brand Header -->
+  <a href="index.html" class="auth-header-brand">
+    <i class="fa-solid fa-soap"></i>
+    <span>FreshFold Laundry</span>
+  </a>
+
   <div class="container">
-    <div class="tab-header">
-      <div class="tab-link active" data-tab="login">Login</div>
-      <div class="tab-link" data-tab="register">Register</div>
+    <div class="tab-header" role="tablist">
+      <div class="tab-link active" data-tab="login" role="tab" aria-selected="true">লগইন</div>
+      <div class="tab-link" data-tab="register" role="tab" aria-selected="false">দোকান নিবন্ধন</div>
     </div>
 
     <!-- Login -->
-    <div class="tab-content active" id="login">
-      <h2><i class="fas fa-sign-in-alt"></i> Shop Owner Login</h2>
+    <div class="tab-content active" id="login" role="tabpanel">
+      <h2><i class="fas fa-store"></i> দোকান মালিক লগইন</h2>
       <form id="loginForm">
         <div class="input-group">
-          <i class="fas fa-envelope"></i>
-          <input type="email" id="loginEmail" placeholder="Email" required>
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          <input type="email" id="loginEmail" placeholder="দোকানের ইমেইল ঠিকানা" required autocomplete="email">
         </div>
         <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input type="password" id="loginPassword" placeholder="Password" required>
+          <i class="fas fa-lock" aria-hidden="true"></i>
+          <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড লিখুন" required autocomplete="current-password">
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">অ্যাডমিন প্যানেলে প্রবেশ করুন</button>
         <div class="error" id="loginError"></div>
-        <p>Don't have an account? <a href="#" data-tab="register">Register Now</a></p>
+        <p>দোকান অ্যাকাউন্ট নেই? <a href="#" data-tab="register">নতুন পার্টনার হিসেবে যোগ দিন</a></p>
       </form>
     </div>
 
     <!-- Register -->
-    <div class="tab-content" id="register">
-      <h2><i class="fas fa-user-plus"></i> Shop Owner Register</h2>
+    <div class="tab-content" id="register" role="tabpanel">
+      <h2><i class="fas fa-user-plus"></i> পার্টনার নিবন্ধন</h2>
       <form id="registerForm">
         <div class="input-group">
-          <i class="fas fa-store"></i>
-          <input type="text" id="shopName" placeholder="Shop Name" required>
+          <i class="fas fa-store" aria-hidden="true"></i>
+          <input type="text" id="shopName" placeholder="লন্ড্রি শপের নাম" required autocomplete="organization">
         </div>
         <div class="input-group">
-          <i class="fas fa-envelope"></i>
-          <input type="email" id="regEmail" placeholder="Email Address" required>
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          <input type="email" id="regEmail" placeholder="ব্যবসা / ব্যক্তিগত ইমেইল" required autocomplete="email">
         </div>
         <div class="input-group">
-          <i class="fas fa-map-marker-alt"></i>
-          <input type="text" id="shopPlace" placeholder="Shop Location/Area" required>
+          <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+          <input type="text" id="shopPlace" placeholder="দোকানের এলাকা / লোকেশন (যেমন: জিইসি, চট্টগ্রাম)" required autocomplete="street-address">
         </div>
         <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input type="password" id="regPassword" placeholder="Create Password" required>
+          <i class="fas fa-lock" aria-hidden="true"></i>
+          <input type="password" id="regPassword" placeholder="পাসওয়ার্ড তৈরি করুন (কমপক্ষে ৬ অক্ষর)" required autocomplete="new-password">
         </div>
-        <button type="submit">Register</button>
+        <button type="submit">দোকান রেজিস্টার করুন</button>
         <div class="success" id="registerSuccess"></div>
         <div class="error" id="registerError"></div>
-        <p>Already have an account? <a href="#" data-tab="login">Login Here</a></p>
+        <p>ইতিমধ্যে নিবন্ধিত? <a href="#" data-tab="login">লগইন করুন</a></p>
       </form>
     </div>
   </div>
+
+  <a href="index.html" class="back-home">
+    <i class="fa-solid fa-arrow-left"></i> হোমপেজে ফিরে যান
+  </a>
 
   <!-- Firebase and App Logic -->
   <script type="module" src="../assets/js/auth/shopkeeper-auth.js"></script>

@@ -1,79 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
   <meta charset="UTF-8">
-  <title>FreshFold Laundry | Customer Dashboard</title>
+  <title>Customer Dashboard | FreshFold Laundry</title>
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  
   <link rel="stylesheet" href="../assets/css/customer-dashboard.css">
   <link rel="stylesheet" href="../assets/css/customer-shop-list.css">
   <link rel="stylesheet" href="../assets/css/customer-feedback.css">
-
 </head>
 
 <body>
-  <div class="navbar">
-    <div>
+  <!-- Modern App Bar -->
+  <header class="navbar" role="banner">
+    <a href="index.html" class="brand-wrapper">
+      <i class="fa-solid fa-soap"></i>
+      <span>FreshFold</span>
+    </a>
 
+    <!-- Center Nav Buttons -->
+    <nav class="nav-center-links" role="navigation" aria-label="Customer Navigation">
+      <a href="#service" class="nav-link-btn active"><i class="fa-solid fa-shirt"></i> সার্ভিসেস</a>
+      <a href="#history" class="nav-link-btn"><i class="fa-solid fa-clock-rotate-left"></i> অর্ডার হিস্ট্রি</a>
+      <button class="nav-link-btn" id="toggleCommentBtn" type="button"><i class="fa-solid fa-comment-dots"></i> মতামত দিন</button>
+    </nav>
 
-      <a href="#history" ">History</a>
-      <a href=" #" class="nav-link"><i class="fa-solid fa-tags"></i>Offers</a>
-      <a href="#" class="nav-link" id="toggleCommentBtn"><i class="fa-solid fa-phone"></i> Comments</a>
-      <!-- এখানেই নিচে commentSection রাখো -->
-      <div id="commentSection">
-        <form id="commentForm">
-          <input type="text" id="userName" placeholder="Your Name" required />
-          <input type="text" id="userLocation" placeholder="Your Location" required />
-          <textarea id="userComment" placeholder="Write your comment..." required></textarea>
-          <button type="submit">Submit</button>
-        </form>
+    <!-- Right Actions: Balance & Profile -->
+    <div class="nav-right-actions">
+      <div class="balance-capsule">
+        <span>💰 ৳<span id="userBalance">0.0</span></span>
+        <button class="recharge-pill-btn" onclick="goToRechargePage()" type="button">
+          <i class="fa-solid fa-plus"></i> রিচার্জ
+        </button>
       </div>
-      <div id="userEmailDisplay" style="cursor:pointer; font-weight:bold; color:#2980b9; margin-left:12px;"></div>
+      <div id="userEmailDisplay" title="Click to view email" role="button" tabindex="0">U</div>
     </div>
-  </div>
-  <div id="balanceSection">
-    <div>
-      💰 ব্যালেন্স: <span id="userBalance">Loading...</span> ৳
-    </div>
-    <button onclick="goToRechargePage()">🔄 রিচার্জ করুন</button>
-  </div>
-  <section id="landing">
-    <h1>Welcome to Our Laundry Service</h1>
-    <p>Clean clothes, happy life!</p>
-  </section>
-  <section id="service" class="container">
-    <div class="sidebar">
-      <div class="shopListContainer"></div>
-    </div>
+  </header>
 
+  <!-- Slide-out Feedback / Comment Form -->
+  <aside id="commentSection" aria-label="Feedback Drawer">
+    <form id="commentForm">
+      <h3 style="margin-bottom: 8px; color: var(--slate-900);">✨ আপনার মূল্যবান মতামত দিন</h3>
+      <input type="text" id="userName" placeholder="আপনার নাম" required />
+      <input type="text" id="userLocation" placeholder="আপনার এলাকা বা শহর (যেমন: চট্টগ্রাম)" required />
+      <textarea id="userComment" placeholder="আমাদের সার্ভিস সম্পর্কে আপনার অভিজ্ঞতা লিখুন..." required></textarea>
+      <button type="submit">মতামত জমা দিন</button>
+    </form>
+  </aside>
 
-    <div class="main">
-      <p>Loading products...</p>
-    </div>
+  <!-- Hero Welcome Banner -->
+  <section id="landing" aria-label="Welcome">
+    <h1>স্মার্ট লন্ড্রি ও ডোরস্টেপ কেয়ার</h1>
+    <p>পছন্দের দোকান নির্বাচন করুন, কাপড় বেছে নিন এবং ওয়ালেটের মাধ্যমে নিমেষেই অর্ডার কনফার্ম করুন।</p>
   </section>
+
+  <!-- Main Service Interface -->
+  <main id="service" class="container">
+    <!-- Active Shops Sidebar -->
+    <aside class="sidebar" aria-label="Shop Selection">
+      <div class="shopListContainer">
+        <h3><i class="fa-solid fa-store"></i> সক্রিয় লন্ড্রি শপসমূহ</h3>
+        <p style="font-size: 0.88rem; color: var(--slate-500); margin-bottom: 12px;">দোকান লোড হচ্ছে...</p>
+      </div>
+    </aside>
+
+    <!-- Products & Services Grid -->
+    <section class="main" aria-label="Garment Products">
+      <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--slate-500);">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--primary);"></i>
+        <p>লন্ড্রি সেবা ও মূল্য তালিকা লোড হচ্ছে...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky Bottom Checkout Bar -->
   <div class="submit-area">
-    <button class="submit-btn" onclick="generateBill()">Select Shop & Submit</button>
+    <button class="submit-btn" onclick="generateBill()" type="button">
+      <i class="fa-solid fa-receipt"></i>
+      <span>শপ সিলেক্ট ও বিল প্রস্তুত করুন</span>
+    </button>
   </div>
-  <section id="history">
-    <h2>🧺 Past Orders</h2>
 
-    <div id="userOrders"></div>
-    <div id="orderlist"></div>
+  <!-- Past Orders Timeline -->
+  <section id="history" aria-labelledby="history-heading">
+    <h2 id="history-heading"><i class="fa-solid fa-clock-rotate-left" style="color: var(--primary);"></i> পূর্ববর্তী অর্ডারসমূহ</h2>
+    <div id="userOrders">
+      <p style="color: var(--slate-500); text-align: center;">অর্ডার তালিকা লোড হচ্ছে...</p>
+    </div>
   </section>
-  <div id="billModal" class="modal">
+
+  <!-- Order Receipt Checkout Modal -->
+  <div id="billModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="billModalHeading">
     <div class="modal-content">
       <span class="close" onclick="document.getElementById('billModal').style.display='none'">&times;</span>
-      <h2>🧾 Order Bill</h2>
-      <input type="text" id="customerName" class="input-field" placeholder="Enter your name">
-      <input type="text" id="customerPhone" class="input-field" placeholder="Enter mobile number">
-      <input type="text" id="customerAddress" class="input-field" placeholder="Enter address">
+      <h2 id="billModalHeading"><i class="fa-solid fa-file-invoice-dollar" style="color: var(--primary);"></i> অর্ডার বিবরণী ও বিল</h2>
+      
       <div id="billDetails"></div>
-      <button class="submit-btn" onclick="submitOrder()">Confirm & Submit Order</button>
+
+      <div style="margin-top: 16px;">
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--slate-700); margin-bottom: 4px; display: block;">ডেলিভারি গ্রহীতার নাম</label>
+        <input type="text" id="customerName" class="input-field" placeholder="আপনার সম্পূর্ণ নাম" required>
+        
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--slate-700); margin-bottom: 4px; display: block;">মোবাইল নম্বর</label>
+        <input type="tel" id="customerPhone" class="input-field" placeholder="ডেলিভারি হিরোর সাথে যোগাযোগের নম্বর" required>
+        
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--slate-700); margin-bottom: 4px; display: block;">পিকআপ ও ডেলিভারি ঠিকানা</label>
+        <input type="text" id="customerAddress" class="input-field" placeholder="বাসা/ফ্ল্যাট নং, রোড, এলাকা" required>
+      </div>
+
+      <button class="submit-btn" style="width: 100%; margin-top: 14px;" onclick="submitOrder()" type="button">
+        <i class="fa-solid fa-check-circle"></i>
+        <span>অর্ডার কনফার্ম করুন</span>
+      </button>
     </div>
   </div>
-
 
   <script type="module" src="../assets/js/pages/customer-dashboard.js"></script>
 </body>

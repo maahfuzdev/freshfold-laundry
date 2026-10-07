@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>FreshFold Laundry | Laundry Pickup &amp; Delivery</title>
+  <title>FreshFold Laundry | Smart Laundry Pickup &amp; Delivery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google-site-verification" content="e7lz1LmjvHuTrynOJFzNp2UdH-hySN9o8l5KIwKWjXk" />
-  <meta name="description" content="FreshFold Laundry makes laundry pickup, garment care, and order updates simple. Explore our laundry services online." />
+  <meta name="description" content="FreshFold Laundry makes laundry pickup, garment care, and order updates simple. Explore our smart laundry services online." />
   <link rel="canonical" href="https://maahfuzdev.github.io/freshfold-laundry/pages/index.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="FreshFold Laundry" />
-  <meta property="og:title" content="FreshFold Laundry | Laundry Pickup &amp; Delivery" />
+  <meta property="og:title" content="FreshFold Laundry | Smart Laundry Pickup &amp; Delivery" />
   <meta property="og:description" content="Simple laundry pickup, garment care, and order updates from FreshFold Laundry." />
   <meta property="og:url" content="https://maahfuzdev.github.io/freshfold-laundry/pages/index.html" />
   <meta name="twitter:card" content="summary" />
@@ -23,138 +23,192 @@
       "description": "Online laundry pickup, garment care, and order updates."
     }
   </script>
-  <!-- FontAwesome for icons -->
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-  <!-- Link to external CSS -->
-  <link rel="stylesheet" href="../assets/css/landing-page.css" />
+  
+  <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="../assets/css/landing-page-theme.css" />
 </head>
 
 <body>
-  <nav class="navbar">
-    <div class="logo">
+  <!-- Modern Sticky Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main Navigation">
+    <a href="index.html" class="logo">
       <i class="fa-solid fa-soap"></i>
-      FreshFold
-    </div>
+      <span>FreshFold</span>
+    </a>
 
-
+    <!-- Smart FAQ Search / Bot -->
     <div class="chat-container" role="search">
       <div class="chat-search">
         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <input type="text" id="userInput" placeholder="Ask us anything..." aria-label="Ask a laundry question" />
-        <button class="chat-submit" type="button" onclick="handleInput()" aria-label="Get an answer">
+        <input type="text" id="userInput" placeholder="যে কোনো প্রশ্ন লিখুন (যেমন: দাম, পিকআপ, ডেলিভারি)..." aria-label="Ask a laundry question" />
+        <button class="chat-submit" type="button" onclick="handleInput()" aria-label="Get answer">
           <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </button>
       </div>
       <div id="responseBox" aria-live="polite"></div>
     </div>
 
+    <!-- Navigation Actions -->
     <div class="nav-links">
-
-      <button class="nav-action" id="openModalBtn"><i class="fa-solid fa-user"></i>Sign In / Sign Up</button>
+      <button class="nav-action" id="openModalBtn" type="button">
+        <i class="fa-solid fa-user"></i>
+        <span>Sign In / Sign Up</span>
+      </button>
     </div>
   </nav>
+
+  <!-- Main Container -->
   <div class="container">
-    <aside class="sidebar">
-      <h3><i class="fa-solid fa-bolt"></i>Services</h3>
+    <!-- Sidebar: Services -->
+    <aside class="sidebar" aria-label="Services Menu">
+      <h3><i class="fa-solid fa-bolt"></i> আমাদের সেবা</h3>
       <ul class="categories">
-        <li>Laundry Services</li>
-        <li>Express Delivery</li>
-        <li>Eco Wash</li>
-        <li>Ironing</li>
-        <li>Subscription Plans</li>
-        <li>Offers & Deals</li>
-        <li>Customer Support</li>
-        <li>More Categories...</li>
+        <li><span>লন্ড্রি সার্ভিস</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: var(--slate-400);"></i></li>
+        <li><span>এক্সপ্রেস ডেলিভারি</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: var(--slate-400);"></i></li>
+        <li><span>ইকো ওয়াশ (Eco)</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: var(--slate-400);"></i></li>
+        <li><span>ইস্ত্রি ও প্রেসিং</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: var(--slate-400);"></i></li>
+        <li><span>সাবস্ক্রিপশন প্ল্যান</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: var(--slate-400);"></i></li>
+        <li><span>অফার ও ডিসকাউন্ট</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: var(--slate-400);"></i></li>
+        <li><span>২৪/৭ হেল্পলাইন</span> <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: var(--slate-400);"></i></li>
       </ul>
     </aside>
+
+    <!-- Main Content -->
     <main class="main">
-      <section class="hero">
-        <img src="../assets/images/laundry/laundry-background.png" alt="Laundry Hero Image" class="hero-image" />
+      <!-- Hero Section -->
+      <section class="hero" aria-label="Hero Introduction">
+        <img src="../assets/images/laundry/laundry-background.png" alt="FreshFold Laundry Hero Background" class="hero-image" />
         <div class="hero-content">
           <div class="hero-texts">
-            <span class="hero-eyebrow">LAUNDRY DAY, MADE EASY</span>
+            <span class="hero-eyebrow"><i class="fa-solid fa-sparkles"></i> LAUNDRY DAY, MADE EFFORTLESS</span>
             <h1 class="hero-title">Fresh clothes.<br />More time for life.</h1>
-            <p class="hero-sub">Reliable laundry care, picked up from your door and delivered right back.</p>
-            <button class="hero-cta" id="heroSignInBtn" type="button">Get started <i class="fa-solid fa-arrow-right"></i></button>
+            <p class="hero-sub">আপনার ঘরের দরজায় পিকআপ ও দ্রুততম সময়ে ডেলিভারি। আধুনিক কাপড় যত্ন ও প্রিমিয়াম ওয়াশিং সার্ভিস।</p>
+            <button class="hero-cta" id="heroSignInBtn" type="button">
+              <span>শুরু করুন এখনই</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
           <div class="hero-icons">
-            <div class="hero-icon">🚗<span>Pickup</span></div>
-            <div class="hero-icon">🧺<span>Washing</span></div>
-            <div class="hero-icon">🚚<span>Delivery</span></div>
-            <div class="hero-icon">📱<span>Tracking</span></div>
+            <div class="hero-icon"><i class="fa-solid fa-car-side"></i><span>ডোরস্টেপ পিকআপ</span></div>
+            <div class="hero-icon"><i class="fa-solid fa-shirt"></i><span>স্মার্ট ওয়াশ</span></div>
+            <div class="hero-icon"><i class="fa-solid fa-truck-fast"></i><span>ফাস্ট ডেলিভারি</span></div>
+            <div class="hero-icon"><i class="fa-solid fa-clock"></i><span>লাইভ ট্র্যাকিং</span></div>
           </div>
         </div>
       </section>
 
+      <!-- Quick Suggestion Chips -->
+      <section class="suggestions" aria-label="Popular Questions">
+        <button class="suggestion" type="button" onclick="setQuery('দাম')">💰 মূল্য তালিকা</button>
+        <button class="suggestion" type="button" onclick="setQuery('পিকআপ')">🚗 পিকআপ সার্ভিস</button>
+        <button class="suggestion" type="button" onclick="setQuery('urgent')">⚡ এক্সপ্রেস ওয়াশ</button>
+        <button class="suggestion" type="button" onclick="setQuery('ইস্ত্রি')">👔 ইস্ত্রি প্যাকেজ</button>
+        <button class="suggestion" type="button" onclick="setQuery('অফার')">🎁 ডিসকাউন্ট ও অফার</button>
+        <button class="suggestion" type="button" onclick="setQuery('পেমেন্ট')">💳 পেমেন্ট পদ্ধতি</button>
+      </section>
 
-      <section class="suggestions">
-        <div class="suggestion">Laundry Offers</div>
-        <div class="suggestion">Express Delivery</div>
-        <div class="suggestion">Eco-Friendly Wash</div>
-        <div class="suggestion">Ironing Packages</div>
-        <div class="suggestion">Home Pickup</div>
-        <div class="suggestion">Subscription Discounts</div>
-      </section>
+      <!-- Modern Features Grid -->
       <section class="features" aria-labelledby="features-title">
-        <h3 id="features-title">Laundry care that fits your day</h3>
-        <table class="features-table">
-          <tr>
-            <th>ফিচার</th>
-            <th>বর্ণনা</th>
-          </tr>
-          <tr>
-            <td>Smart Pickup</td>
-            <td>ঘরে বসেই অর্ডার ও সংগ্রহ</td>
-          </tr>
-          <tr>
-            <td>Live Tracking</td>
-            <td>অর্ডার কোথায়, লাইভ আপডেট</td>
-          </tr>
-          <tr>
-            <td>Eco Wash</td>
-            <td>পরিবেশবান্ধব পরিষেবা</td>
-          </tr>
-          <tr>
-            <td>Fast Delivery</td>
-            <td>নির্ভরযোগ্য দ্রুত ডেলিভারি</td>
-          </tr>
-        </table>
-      </section>
-      <section class="reviews">
-        <h3>Kind words from our customers</h3>
-        <div id="reviewList">
-          <!-- এখানে কমেন্টগুলো append হবে -->
+        <h3 id="features-title">যে কারণে ফ্রেশফোল্ড বেছে নেবেন</h3>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="icon-box"><i class="fa-solid fa-house-chimney"></i></div>
+            <h4>Smart Pickup</h4>
+            <p>ঘরে বসেই অর্ডার করুন। আমাদের ডেলিভারি হিরো আপনার সুবিধা অনুযায়ী সময়ে কাপড় সংগ্রহ করবে।</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+            <h4>Live Tracking</h4>
+            <p>ওয়াশিং, শুকানো থেকে শুরু করে ডেলিভারি পর্যন্ত অর্ডারের প্রতি ধাপ লাইভ ট্র্যাক করুন।</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box"><i class="fa-solid fa-leaf"></i></div>
+            <h4>Eco-Friendly Wash</h4>
+            <p>পরিবেশবান্ধব ডিটারজেন্ট এবং কাপড়ের ফাইবার সুরক্ষায় আন্তর্জাতিক মানের ওয়াশিং সাইকেল।</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
+            <h4>Express Delivery</h4>
+            <p>জরুরি প্রয়োজনে ২৪ ঘণ্টার মধ্যে কাপড় ধুয়ে, ইস্ত্রি করে প্যাকসহ দ্রুত ডেলিভারি সুবিধা।</p>
+          </div>
         </div>
       </section>
 
-      <section class="how-it-works">
-        <h3>কিভাবে কাজ করে</h3>
+      <!-- Customer Reviews Reel -->
+      <section class="reviews" aria-labelledby="reviews-title">
+        <h3 id="reviews-title">গ্রাহকদের অভিজ্ঞতা ও মতামত</h3>
+        <div id="reviewList" class="reviews-grid">
+          <!-- Dynamically loaded from Cloud Firestore userComments -->
+          <div class="review-card">
+            <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <p class="comment-text">“খুবই ভালো সার্ভিস। কাপড় একেবারে নতুনের মতো পরিষ্কার হয়েছে।”</p>
+            <div class="author">
+              <div class="author-avatar">M</div>
+              <div class="author-info">
+                <div class="author-name">Mahfuz Ahmed</div>
+                <span>Chittagong</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Flow -->
+      <section class="how-it-works" aria-labelledby="how-it-works-title">
+        <h3 id="how-it-works-title">কিভাবে কাজ করে?</h3>
         <ol>
-          <li>অর্ডার দিন: ওয়েব/অ্যাপে অর্ডার করুন</li>
-          <li>পিকআপ: আমাদের টিম সংগ্রহ করবে</li>
-          <li>প্রসেসিং: স্মার্ট ওয়াশিং ও ড্রাইং</li>
-          <li>ডেলিভারি: নির্দিষ্ট সময়ে ডেলিভারি</li>
+          <li><strong>অনলাইনে অর্ডার:</strong> পছন্দের লন্ড্রি শপ সিলেক্ট করে কাপড় ও সংখ্যা নির্ধারণ করুন।</li>
+          <li><strong>দরজায় পিকআপ:</strong> নির্দিষ্ট সময়ে আমাদের টিম আপনার ঠিকানা থেকে কাপড় সংগ্রহ করবে।</li>
+          <li><strong>স্মার্ট কেয়ার:</strong> আধুনিক মেশিনে ওয়াশ, ড্রিমিক্স ও নিখুঁত প্রেসিং সম্পন্ন করা হয়।</li>
+          <li><strong>দ্রুত ডেলিভারি:</strong> সুসজ্জিত প্যাকেজিংসহ ঠিক সময়ে আপনার ঠিকানায় পৌঁছে দেওয়া হয়।</li>
         </ol>
       </section>
     </main>
   </div>
+
+  <!-- Modern Footer -->
   <footer class="footer">
-    <div>
-      Social Media আইকন | Terms & Conditions | Privacy Policy | Contact
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
+      <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #fff;">
+        <i class="fa-solid fa-soap" style="color: var(--brand-400);"></i> FreshFold Laundry
+      </div>
+      <div>
+        <a href="#services">সেবাসমূহ</a> •
+        <a href="#reviews">মতামত</a> •
+        <a href="#">শর্তাবলী</a> •
+        <a href="#">গোপনীয়তা নীতি</a> •
+        <a href="#">যোগাযোগ</a>
+      </div>
+      <div>
+        &copy; 2026 FreshFold Laundry. সর্বস্বত্ব সংরক্ষিত।
+      </div>
     </div>
   </footer>
 
-  <!-- Sign In/Sign Up Modal -->
-  <div class="modal-bg" id="modalBg">
+  <!-- Role Selection Modal -->
+  <div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
-      <button class="close-modal" id="closeModalBtn">&times;</button>
-      <h2>Sign In / Sign Up</h2>
+      <button class="close-modal" id="closeModalBtn" aria-label="Close modal">&times;</button>
+      <h2 id="modalTitle">স্বাগতম FreshFold-এ</h2>
+      <p style="text-align: center; color: var(--slate-500); font-size: 0.9rem; margin-bottom: 20px;">
+        চালিয়ে যেতে আপনার অ্যাকাউন্টের ধরন নির্বাচন করুন:
+      </p>
       <div class="user-type-group" id="userTypeGroup">
-        <button type="button" class="user-type-btn active" data-type="customer">কাস্টমার</button>
-        <button type="button" class="user-type-btn" data-type="shopkeeper">দোকান মালিক</button>
+        <button type="button" class="user-type-btn active" data-type="customer">
+          <i class="fa-solid fa-user"></i>
+          <span>কাস্টমার</span>
+        </button>
+        <button type="button" class="user-type-btn" data-type="shopkeeper">
+          <i class="fa-solid fa-store"></i>
+          <span>দোকান মালিক / পার্টনার</span>
+        </button>
       </div>
-      <button class="submit-btn" id="nextBtn">পরবর্তী ধাপ</button>
+      <button class="submit-btn" id="nextBtn" type="button">পরবর্তী ধাপ <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i></button>
     </div>
   </div>
 

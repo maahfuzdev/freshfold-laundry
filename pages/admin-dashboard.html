@@ -1,114 +1,259 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
   <meta charset="UTF-8" />
-  <title>FreshFold Laundry | Admin Dashboard</title>
+  <title>FreshFold Laundry | Shopkeeper Admin Panel</title>
   <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script type="module" src="../assets/js/pages/admin-dashboard.js"></script>
-
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
   <link rel="stylesheet" href="../assets/css/pages/admin-dashboard.css" />
 </head>
 
-<body class="bg-gray-100 min-h-screen">
-  <div class="flex flex-col md:flex-row">
-    <!-- Sidebar -->
-    <div class="w-full md:w-64 bg-[#1e272e] text-white p-6 shadow-lg">
-      <h2 class="text-2xl font-bold mb-6 tracking-wide">🔧 Admin Panel</h2>
-      <nav class="space-y-2">
-        <button onclick="toggleSection('priceSection')"
-          class="w-full text-left py-2 px-4 bg-[#2f3640] rounded hover:bg-[#3d3d3d]">
-          Set Prices
-        </button>
-        <button onclick="toggleSection('orderSection')"
-          class="w-full text-left py-2 px-4 bg-[#2f3640] rounded hover:bg-[#3d3d3d]">
-          Orders
-        </button>
-        <button id="userBtn" class="w-full text-left py-2 px-4 bg-[#2f3640] rounded hover:bg-[#3d3d3d]"
-          title="Admin Email">User
+<body class="bg-slate-100 font-sans text-slate-800 min-h-screen flex flex-col md:flex-row">
 
+  <!-- Mobile Top Header -->
+  <header class="md:hidden bg-slate-900 text-white p-4 flex items-center justify-between sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-2 font-bold text-lg">
+      <i class="fa-solid fa-soap text-brand-500"></i>
+      <span>FreshFold Admin</span>
+    </div>
+    <button id="mobileMenuBtn" class="p-2 text-slate-300 hover:text-white" aria-label="Toggle Navigation">
+      <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+  </header>
+
+  <!-- Sidebar Navigation -->
+  <aside id="adminSidebar" class="w-full md:w-64 bg-slate-900 text-white p-6 shadow-xl flex flex-col justify-between hidden md:flex md:min-h-screen sticky md:top-0">
+    <div>
+      <div class="hidden md:flex items-center gap-3 font-extrabold text-xl mb-8 tracking-tight text-white">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+          <i class="fa-solid fa-soap"></i>
+        </div>
+        <span>FreshFold Panel</span>
+      </div>
+
+      <!-- Shop Identity Pill -->
+      <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-3 mb-6">
+        <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">লন্ড্রি শপ</p>
+        <p id="currentShopName" class="font-bold text-sm text-brand-400 truncate">লোড হচ্ছে...</p>
+        <p id="currentShopEmail" class="text-xs text-slate-400 truncate">admin@shop.com</p>
+      </div>
+
+      <nav class="space-y-2">
+        <button onclick="switchTab('summaryTab')" id="btnSummary"
+          class="nav-tab w-full flex items-center gap-3 py-3 px-4 rounded-xl font-semibold text-sm transition-all bg-brand-700 text-white shadow-md shadow-brand-700/20">
+          <i class="fa-solid fa-chart-pie w-5"></i>
+          <span>ড্যাশবোর্ড সামারি</span>
+        </button>
+
+        <button onclick="switchTab('ordersTab')" id="btnOrders"
+          class="nav-tab w-full flex items-center gap-3 py-3 px-4 rounded-xl font-semibold text-sm transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <i class="fa-solid fa-boxes-stacked w-5"></i>
+          <span>অর্ডার ম্যানেজমেন্ট</span>
+        </button>
+
+        <button onclick="switchTab('priceTab')" id="btnPrices"
+          class="nav-tab w-full flex items-center gap-3 py-3 px-4 rounded-xl font-semibold text-sm transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <i class="fa-solid fa-tags w-5"></i>
+          <span>মূল্য তালিকা এডিটর</span>
         </button>
       </nav>
     </div>
 
-    <!-- Main Content -->
-    <div class="flex-1 p-6 space-y-10">
-      <!-- Product Pricing Section -->
-      <div id="priceSection">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">🧺 Set Product Prices</h1>
-        <div class="flex flex-wrap gap-6 justify-start" id="productList"></div>
+    <!-- Sign Out Button -->
+    <div class="pt-6 border-t border-slate-800">
+      <button id="logoutBtn"
+        class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-semibold text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>সাইন আউট</span>
+      </button>
+    </div>
+  </aside>
 
-        <!-- Product Card Template -->
-        <template id="productTemplate">
-          <div class="card bg-white rounded-2xl shadow-md p-4 w-full sm:w-[300px] flex items-start flex-col gap-2">
-            <div class="flex items-center gap-4 w-full">
-              <img class="product-img w-20 h-20 rounded-lg border object-cover" src="" alt="Product" />
-              <div class="flex-1">
-                <h3 class="product-name text-lg font-semibold text-gray-800"></h3>
-                <p class="current-price text-sm text-gray-600">
-                  ৳ <span>0</span>
-                </p>
-              </div>
+  <!-- Main Content Workspace -->
+  <main class="flex-1 p-4 md:p-8 space-y-8 overflow-y-auto">
+    
+    <!-- Top Welcome Banner -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+      <div>
+        <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">দোকান ব্যবস্থাপনা কেন্দ্র</h1>
+        <p class="text-sm text-slate-500 mt-1">কাস্টমার অর্ডার পর্যবেক্ষণ, ডেলিভারি আপডেট এবং কাপড়ের সার্ভিস রেট নির্ধারণ করুন।</p>
+      </div>
+      <a href="index.html" class="inline-flex items-center gap-2 text-xs font-bold text-brand-700 bg-brand-50 border border-brand-200 px-4 py-2 rounded-full hover:bg-brand-100 transition-colors w-fit">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>লাইভ শপ ভিউ</span>
+      </a>
+    </div>
+
+    <!-- Metrics Summary Cards Grid -->
+    <section id="summarySection" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Card 1 -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-receipt"></i>
+        </div>
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">মোট অর্ডার</h3>
+          <p id="totalOrders" class="text-2xl font-extrabold text-slate-900 mt-0.5">0</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-wallet"></i>
+        </div>
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">মোট আয়</h3>
+          <p id="totalIncome" class="text-2xl font-extrabold text-emerald-600 mt-0.5">৳ 0</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">অপেক্ষমাণ (Pending)</h3>
+          <p id="pendingCount" class="text-2xl font-extrabold text-amber-500 mt-0.5">0</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">সম্পন্ন (Completed)</h3>
+          <p id="completedCount" class="text-2xl font-extrabold text-teal-600 mt-0.5">0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Orders Section -->
+    <section id="orderSection" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-boxes-stacked text-brand-600"></i>
+            <span>অর্ডার ওভারভিউ ও স্ট্যাটাস</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">কাস্টমারের অর্ডার প্রসেস করুন এবং সম্পন্ন হলে স্ট্যাটাস পরিবর্তন করুন।</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="relative w-full sm:w-72">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input type="text" id="searchBox" placeholder="নাম, মোবাইল বা ঠিকানা খুঁজুন..."
+            class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500" />
+        </div>
+      </div>
+
+      <!-- Responsive Table Container -->
+      <div class="overflow-x-auto rounded-xl border border-slate-200">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 text-xs uppercase tracking-wider">
+              <th class="py-3 px-4">গ্রাহক</th>
+              <th class="py-3 px-4">মোবাইল</th>
+              <th class="py-3 px-4">তারিখ ও সময়</th>
+              <th class="py-3 px-4">ঠিকানা</th>
+              <th class="py-3 px-4">পোশাক ও বিবরণ</th>
+              <th class="py-3 px-4">স্ট্যাটাস</th>
+              <th class="py-3 px-4 text-center">অ্যাকশন</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody" class="divide-y divide-slate-100">
+            <tr>
+              <td colspan="7" class="py-8 text-center text-slate-400">
+                <i class="fa-solid fa-spinner fa-spin text-lg mb-2"></i>
+                <p>অর্ডার লোড হচ্ছে...</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Product Pricing Section -->
+    <section id="priceSection" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+      <div class="mb-6">
+        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-tags text-brand-600"></i>
+          <span>লন্ড্রি সেবা ও মূল্য নির্ধারণ</span>
+        </h2>
+        <p class="text-xs text-slate-500 mt-0.5">প্রতিটি পোশাকের জন্য পরিষ্কার ও ইস্ত্রি সেবার বর্তমান মূল্য আপডেট করুন।</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="productList">
+        <div class="col-span-full py-8 text-center text-slate-400">
+          <i class="fa-solid fa-spinner fa-spin text-lg mb-2"></i>
+          <p>পণ্য লোড হচ্ছে...</p>
+        </div>
+      </div>
+
+      <!-- Product Card Template -->
+      <template id="productTemplate">
+        <div class="card bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between hover:shadow-md transition-all">
+          <div class="flex items-center gap-4 mb-3">
+            <img class="product-img w-16 h-16 rounded-xl border border-slate-200 object-cover bg-white" src="" alt="Product" />
+            <div class="flex-1 min-w-0">
+              <h3 class="product-name font-bold text-slate-900 text-sm truncate"></h3>
+              <p class="current-price text-sm font-extrabold text-brand-700 mt-1">
+                ৳ <span>0</span>
+              </p>
             </div>
-            <div class="price-input hidden w-full">
-              <input type="number" class="price-field mt-2 p-2 border rounded w-full" placeholder="Enter New Price" />
-              <button class="set-price-btn mt-2 bg-blue-600 text-white px-4 py-1 rounded">
-                Finish
-              </button>
-            </div>
-            <button class="edit-btn text-sm text-blue-600 hover:underline self-end">
-              Set Price
+          </div>
+          
+          <div class="price-input hidden w-full mt-2 pt-2 border-t border-slate-200">
+            <input type="number" class="price-field p-2 border border-slate-300 rounded-lg w-full text-sm font-semibold focus:outline-none focus:border-brand-500" placeholder="নতুন মূল্য (৳)" />
+            <button class="set-price-btn mt-2 w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-1.5 px-3 rounded-lg text-xs transition-colors">
+              মূল্য সেভ করুন
             </button>
           </div>
-        </template>
-      </div>
+          
+          <button class="edit-btn text-xs font-bold text-brand-700 hover:text-brand-800 hover:underline self-end mt-2 flex items-center gap-1">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>মূল্য পরিবর্তন</span>
+          </button>
+        </div>
+      </template>
+    </section>
 
-      <!-- Summary Section -->
-      <div id="summarySection" class="mb-6 grid grid-cols-4 gap-6">
-        <div class="bg-white rounded-xl shadow p-4 text-center">
-          <h3 class="text-gray-600 text-sm">Total Orders</h3>
-          <p id="totalOrders" class="text-3xl font-bold text-blue-600">0</p>
-        </div>
-        <div class="bg-white rounded-xl shadow p-4 text-center">
-          <h3 class="text-gray-600 text-sm">Total Income</h3>
-          <p id="totalIncome" class="text-3xl font-bold text-green-600">৳0</p>
-        </div>
-        <div class="bg-white rounded-xl shadow p-4 text-center">
-          <h3 class="text-gray-600 text-sm">Pending Orders</h3>
-          <p id="pendingCount" class="text-3xl font-bold text-yellow-500">0</p>
-        </div>
-        <div class="bg-white rounded-xl shadow p-4 text-center">
-          <h3 class="text-gray-600 text-sm">Completed Orders</h3>
-          <p id="completedCount" class="text-3xl font-bold text-green-700">0</p>
-        </div>
-      </div>
+  </main>
 
-
-      <!-- Order List -->
-      <div id="orderSection" style="display: none">
-        <h2 class="text-3xl font-bold mb-6 text-gray-800">📦 Orders Overview</h2>
-        <div class="overflow-x-auto bg-white rounded-2xl shadow-lg">
-          <input type="text" id="searchBox" placeholder="Search orders..." class="p-3 border rounded m-4 w-full" />
-          <table class="min-w-full">
-            <thead>
-              <tr>
-                <th class="py-2 px-4 border-b">Name</th>
-                <th class="py-2 px-4 border-b">Phone</th>
-                <th class="py-2 px-4 border-b">Order Date</th>
-                <th class="py-2 px-4 border-b">Order Time</th>
-                <th class="py-2 px-4 border-b">Address</th>
-                <th class="py-2 px-4 border-b">Items</th>
-                <th class="py-2 px-4 border-b">Status</th>
-                <th class="py-2 px-4 border-b">Delete</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script type="module" src="../assets/js/pages/admin-dashboard.js"></script>
 </body>
 
 </html>

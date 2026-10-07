@@ -1,80 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
   <meta charset="UTF-8">
-  <title>Wallet | FreshFold Laundry</title>
+  <title>FreshFold Wallet | ডিজিটাল লন্ড্রি ক্যাশ</title>
   <meta name="robots" content="noindex, nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script type="module" src="../assets/js/payments/wallet-payments.js"></script>
-
-
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <link rel="stylesheet" href="../assets/css/payments/wallet.css" />
 </head>
 
 <body>
-  <!-- [Your existing HTML from <body> including .wallet-card etc.] -->
-  <div class="wallet-card">
-    <div class="header">
-      <div class="icon">💳</div>
-      <h2>Wallet System</h2>
+  <!-- Top Navigation Header -->
+  <header class="wallet-nav-header">
+    <a href="customer-dashboard.html" class="back-to-dashboard">
+      <i class="fa-solid fa-arrow-left"></i> ড্যাশবোর্ডে ফিরুন
+    </a>
+    <div style="font-weight: 800; font-size: 1.1rem; color: #0f172a;">
+      <i class="fa-solid fa-wallet" style="color: #0f766e; margin-right: 6px;"></i> FreshFold Pay
     </div>
+  </header>
 
-    <div class="balance-section">
-      Balance: <strong>৳<span id="balance">0.0</span></strong>
-    </div>
-
-    <label for="amount">Recharge Amount</label>
-    <input type="number" id="amount" placeholder="Enter amount">
-
-    <button onclick="showPaymentOptions()">Recharge</button>
-
-    <div id="paymentOptions" class="payment-options">
-      <div class="payment-option" onclick="selectPayment('bKash')">
-        <img src="../assets/images/payments/bksh.png" alt="bKash"> <span>bKash</span>
+  <div class="wallet-card-wrapper">
+    <!-- Virtual Card Display -->
+    <div class="virtual-card">
+      <div class="card-top">
+        <div class="card-brand">
+          <i class="fa-solid fa-soap"></i> FreshFold Cash
+        </div>
+        <div class="card-chip"></div>
       </div>
-      <div class="payment-option" onclick="selectPayment('Nagad')">
-        <img src="../assets/images/payments/nagad.png" alt="Nagad"> <span>Nagad</span>
-      </div>
-      <div class="payment-option" onclick="selectPayment('Rocket')">
-        <img src="../assets/images/payments/rocket.png" alt="Rocket"> <span>Rocket</span>
-      </div>
-      <div class="payment-option" onclick="selectPayment('DBBL')">
-        <img src="../assets/images/payments/dbbl.png" alt="DBBL"> <span>DBBL</span>
-      </div>
-      <div class="payment-option" onclick="selectPayment('Bank Account')">
-        <img src="https://cdn-icons-png.flaticon.com/512/4341/4341139.png" alt="Bank"> <span>Bank Account</span>
+      
+      <div class="card-balance-label">বর্তমান ওয়ালেট ব্যালেন্স</div>
+      <div class="card-balance-amount">৳ <span id="balance">0.00</span></div>
+      
+      <div class="card-bottom">
+        <span id="userEmailTag">user@example.com</span>
+        <span><i class="fa-solid fa-wifi" style="transform: rotate(90deg); margin-right: 4px;"></i> Prepaid Pass</span>
       </div>
     </div>
 
-    <div id="bkashForm" class="bkash-form">
-      <h3><img src="../assets/images/payments/bksh.png" alt="bKash" style="width:30px; vertical-align:middle;"> bKash Payment</h3>
-      <input type="text" id="bkashNumber" placeholder="e.g. 01XXXXXXXXX">
-      <button class="confirm" onclick="confirmBkash()">Confirm</button>
-      <button class="cancel" onclick="cancelBkash()">Cancel</button>
+    <!-- Recharge Module -->
+    <div class="recharge-box">
+      <h3><i class="fa-solid fa-bolt" style="color: #0f766e;"></i> ব্যালেন্স রিচার্জ করুন</h3>
+      
+      <!-- Quick Amount Selection Chips -->
+      <div class="quick-amounts">
+        <button class="quick-chip" type="button" onclick="setRechargeAmount(100)">+ ৳১০০</button>
+        <button class="quick-chip" type="button" onclick="setRechargeAmount(200)">+ ৳২০০</button>
+        <button class="quick-chip" type="button" onclick="setRechargeAmount(500)">+ ৳৫০০</button>
+        <button class="quick-chip" type="button" onclick="setRechargeAmount(1000)">+ ৳১,০০০</button>
+        <button class="quick-chip" type="button" onclick="setRechargeAmount(2000)">+ ৳২,০০০</button>
+      </div>
+
+      <div class="input-amount-wrapper">
+        <span>৳</span>
+        <input type="number" id="amount" placeholder="রিচার্জের পরিমাণ লিখুন (যেমন: ৫০০)" min="10" />
+      </div>
+
+      <button class="btn-proceed" onclick="showPaymentOptions()" type="button">
+        পেমেন্ট গেটওয়ে বেছে নিন <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
+      </button>
+
+      <!-- Payment Gateways Grid -->
+      <div id="paymentOptions" class="payment-options">
+        <div class="payment-option" onclick="selectPayment('bKash')">
+          <img src="../assets/images/payments/bksh.png" alt="bKash">
+          <span>বিকাশ (bKash)</span>
+        </div>
+        <div class="payment-option" onclick="selectPayment('Nagad')">
+          <img src="../assets/images/payments/nagad.png" alt="Nagad">
+          <span>নগদ (Nagad)</span>
+        </div>
+        <div class="payment-option" onclick="selectPayment('Rocket')">
+          <img src="../assets/images/payments/rocket.png" alt="Rocket">
+          <span>রকেট (Rocket)</span>
+        </div>
+        <div class="payment-option" onclick="selectPayment('DBBL')">
+          <img src="../assets/images/payments/dbbl.png" alt="DBBL">
+          <span>DBBL Nexus</span>
+        </div>
+        <div class="payment-option" onclick="selectPayment('Bank Account')" style="grid-column: 1 / -1;">
+          <i class="fa-solid fa-building-columns" style="font-size: 1.5rem; color: #0f766e;"></i>
+          <span>ব্যাংক অ্যাকাউন্ট ট্রান্সফার</span>
+        </div>
+      </div>
+
+      <!-- Simulated bKash Gateway Modal Box -->
+      <div id="bkashForm" class="bkash-form">
+        <h3>
+          <img src="../assets/images/payments/bksh.png" alt="bKash" style="width:28px; background:#fff; border-radius:4px; padding:2px;">
+          <span>বিকাশ পেমেন্ট গেটওয়ে</span>
+        </h3>
+        <p style="font-size: 0.85rem; text-align: center; margin-bottom: 12px; opacity: 0.9;">
+          আপনার ১১ ডিজিটের বিকাশ একাউন্ট নম্বর লিখুন:
+        </p>
+        <input type="tel" id="bkashNumber" placeholder="01XXXXXXXXX" />
+        <div class="bkash-actions">
+          <button class="confirm" onclick="confirmBkash()" type="button">পরবর্তী ধাপ</button>
+          <button class="cancel" onclick="cancelBkash()" type="button">বাতিল</button>
+        </div>
+      </div>
+
+      <!-- Simulated OTP Step -->
+      <div id="otpSection" class="bkash-form" style="display: none; background: #c2185b;">
+        <h3><i class="fa-solid fa-shield-halved"></i> ৬ ডিজিটের ওটিপি দিন</h3>
+        <p style="font-size: 0.85rem; text-align: center; margin-bottom: 12px; opacity: 0.9;">
+          আপনার বিকাশ নম্বরে একটি ৬ ডিজিটের কোড পাঠানো হয়েছে (কনসোলে দেখুন)।
+        </p>
+        <input type="text" id="otpInput" placeholder="৬ ডিজিটের কোড লিখুন" style="text-align: center; font-size: 1.2rem; letter-spacing: 0.2em;" />
+        <div class="bkash-actions">
+          <button class="confirm" onclick="verifyOtp()" type="button" style="background: #fff; color: #c2185b;">যাচাই করুন</button>
+          <button class="cancel" onclick="cancelOtp()" type="button">বাতিল</button>
+        </div>
+      </div>
     </div>
 
-
-
-    <!-- OTP input step (after Confirm) -->
-    <div id="otpSection" class="bkash-form" style="display: none;">
-      <h3>Enter OTP</h3>
-      <p>We’ve sent a 6-digit OTP to your number.</p>
-      <input type="text" id="otpInput" placeholder="Enter OTP">
-      <button class="confirm" onclick="verifyOtp()">Verify</button>
-      <button class="cancel" onclick="cancelOtp()">Cancel</button>
-    </div>
-
-    <div class="history">
-      <h3>Transaction History</h3>
+    <!-- Ledger Transaction History -->
+    <div class="history-section">
+      <h3><i class="fa-solid fa-receipt" style="color: #0f766e;"></i> লেনদেনের ইতিহাস</h3>
       <ul id="history">
-
+        <li>লোড হচ্ছে...</li>
       </ul>
     </div>
   </div>
 
+  <script type="module" src="../assets/js/payments/wallet-payments.js"></script>
 </body>
 
 </html>
