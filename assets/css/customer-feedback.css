@@ -1,4 +1,4 @@
-/* Customer Feedback / Comments Drawer - Modern Design */
+/* Customer Feedback Drawer - Gentle Sage Theme */
 #commentSection {
   display: none;
   background: #ffffff;
@@ -7,10 +7,10 @@
   width: calc(100% - 32px);
   margin: 16px auto;
   padding: 24px clamp(16px, 4vw, 28px);
-  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(226, 232, 240, 0.8);
+  box-shadow: 0 16px 36px -12px rgba(40, 50, 42, 0.08), 0 0 0 1px rgba(224, 230, 222, 0.8);
   opacity: 0;
-  transform: translateY(-20px);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(-16px);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 950;
 }
@@ -33,9 +33,9 @@
   padding: 12px 14px;
   font-size: 0.95rem;
   border-radius: 12px;
-  border: 1.5px solid #cbd5e1;
-  background: #f8fafc;
-  color: #0f172a;
+  border: 1.5px solid #d7ded5;
+  background: #fbfdfb;
+  color: #1f2821;
   transition: all 0.2s ease;
   font-family: inherit;
   outline: none;
@@ -43,9 +43,9 @@
 
 #commentForm input:focus,
 #commentForm textarea:focus {
-  border-color: #0f766e;
+  border-color: #5d8760;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+  box-shadow: 0 0 0 3px rgba(93, 135, 96, 0.15);
 }
 
 #commentForm textarea {
@@ -56,19 +56,19 @@
 #commentForm button {
   align-self: flex-start;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #0d9488, #0f766e);
+  background: linear-gradient(135deg, #547c57, #416244);
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 700;
   border: none;
   border-radius: 9999px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+  box-shadow: 0 4px 12px rgba(65, 98, 68, 0.2);
   transition: all 0.2s ease;
 }
 
 #commentForm button:hover {
-  background: linear-gradient(135deg, #0f766e, #115e59);
+  background: linear-gradient(135deg, #486b4b, #38533a);
   transform: translateY(-1px);
 }
 

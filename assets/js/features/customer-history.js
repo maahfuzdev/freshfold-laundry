@@ -1,19 +1,20 @@
 import { collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 export function initializeCustomerHistory(db, auth) {
-  // User Avatar / Email Toggle
+  // User Avatar / Email Toggle (Gentle Sage Green - Zero Blue)
   function displayEmailToggle(email) {
     const emailContainer = document.getElementById('userEmailDisplay');
     if (!emailContainer || !email) return;
     const initial = email.charAt(0).toUpperCase();
     emailContainer.textContent = initial;
+    emailContainer.style.background = "linear-gradient(135deg, #5d8760, #486b4b)";
     emailContainer.title = `Logged in as: ${email} (Click to toggle)`;
 
     emailContainer.onclick = () => {
       if (emailContainer.textContent === initial) {
         emailContainer.textContent = email;
         emailContainer.style.width = "auto";
-        emailContainer.style.padding = "0 12px";
+        emailContainer.style.padding = "0 14px";
         emailContainer.style.borderRadius = "9999px";
       } else {
         emailContainer.textContent = initial;
@@ -23,13 +24,13 @@ export function initializeCustomerHistory(db, auth) {
     };
   }
 
-  // Load User Orders with Modern Status Badges
+  // Load User Orders with Live Status Tracker
   async function loadUserOrders(email) {
     if (!email) return;
 
     const orderListDiv = document.getElementById("userOrders");
     if (!orderListDiv) return;
-    orderListDiv.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--slate-500);"><i class="fa-solid fa-spinner fa-spin"></i> অর্ডার লোড হচ্ছে...</div>`;
+    orderListDiv.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--sand-500);"><i class="fa-solid fa-spinner fa-spin"></i> অর্ডার লোড হচ্ছে...</div>`;
 
     try {
       const q = query(collection(db, "orders"), where("email", "==", email));
@@ -37,8 +38,8 @@ export function initializeCustomerHistory(db, auth) {
 
       if (snapshot.empty) {
         orderListDiv.innerHTML = `
-          <div style="text-align: center; padding: 30px; color: var(--slate-500);">
-            <i class="fa-solid fa-receipt" style="font-size: 2rem; color: var(--slate-300); margin-bottom: 8px;"></i>
+          <div style="text-align: center; padding: 30px; color: var(--sand-500);">
+            <i class="fa-solid fa-receipt" style="font-size: 2rem; color: #d6dcd4; margin-bottom: 8px;"></i>
             <p>আপনার এখনও কোনো অর্ডার নেই। উপরের সার্ভিস থেকে আপনার প্রথম অর্ডারটি করুন!</p>
           </div>
         `;
@@ -63,19 +64,24 @@ export function initializeCustomerHistory(db, auth) {
 
         const isCompleted = order.status === "Completed";
         const statusBadge = isCompleted 
-          ? `<span style="padding: 4px 10px; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">✅ সম্পন্ন</span>`
-          : `<span style="padding: 4px 10px; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">⏳ অপেক্ষমাণ (Pending)</span>`;
+          ? `<span style="padding: 4px 10px; background: #edf7ee; color: #2b572e; border: 1px solid #c9dec9; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">✅ সম্পন্ন (Completed)</span>`
+          : `<span style="padding: 4px 10px; background: #fdf6ed; color: #874b1e; border: 1px solid #f4dec7; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">⏳ অপেক্ষমাণ (Processing)</span>`;
 
         const itemListHTML = (order.items || [])
           .map(item => `<li>${item.qty} × ${item.name} (৳${item.subtotal})</li>`)
           .join('');
+
+        // Progress tracker line
+        const step1 = `<span class="completed-step">① অর্ডার গৃহীত</span>`;
+        const step2 = isCompleted ? `<span class="completed-step">② ওয়াশ ও প্রেসিং</span>` : `<span>② প্রসেসিং হচ্ছে</span>`;
+        const step3 = isCompleted ? `<span class="completed-step">③ ডেলিভারি সম্পন্ন</span>` : `<span>③ ডেলিভারি অপেক্ষা</span>`;
 
         html += `
           <div class="history-item">
             <div class="order-header">
               <div>
                 <span class="order-date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i>${readableDate}</span>
-                <span style="margin-left: 10px; font-size: 0.85rem; color: var(--primary); font-weight: 600;">🏪 ${order.shop || "FreshFold"}</span>
+                <span style="margin-left: 10px; font-size: 0.85rem; color: #486b4b; font-weight: 700;">🏪 ${order.shop || "FreshFold"}</span>
               </div>
               <div style="display: flex; align-items: center; gap: 12px;">
                 ${statusBadge}
@@ -83,7 +89,16 @@ export function initializeCustomerHistory(db, auth) {
               </div>
             </div>
 
-            <div class="order-info">
+            <!-- Live Status Step Tracker -->
+            <div class="order-tracker-steps">
+              ${step1}
+              <i class="fa-solid fa-arrow-right" style="color: #cbd5cb; font-size: 0.75rem; align-self: center;"></i>
+              ${step2}
+              <i class="fa-solid fa-arrow-right" style="color: #cbd5cb; font-size: 0.75rem; align-self: center;"></i>
+              ${step3}
+            </div>
+
+            <div class="order-info" style="margin-top: 12px;">
               <p><strong>👤 প্রাপক:</strong> ${order.name}</p>
               <p><strong>📞 মোবাইল:</strong> ${order.phone || 'N/A'}</p>
               <p style="grid-column: 1 / -1;"><strong>🏠 ঠিকানা:</strong> ${order.address || 'N/A'}</p>
@@ -99,7 +114,7 @@ export function initializeCustomerHistory(db, auth) {
 
       orderListDiv.innerHTML = html;
     } catch (err) {
-      orderListDiv.innerHTML = `<p style="color: #ef4444; text-align: center;">অর্ডার হিস্ট্রি লোড করতে সমস্যা হয়েছে।</p>`;
+      orderListDiv.innerHTML = `<p style="color: #a83232; text-align: center;">অর্ডার হিস্ট্রি লোড করতে সমস্যা হয়েছে।</p>`;
       console.error("loadUserOrders error:", err);
     }
   }

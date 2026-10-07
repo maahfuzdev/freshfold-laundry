@@ -1,4 +1,4 @@
-/* Active Laundry Partner Shops - Modern Sidebar List */
+/* Active Laundry Partner Shops - Gentle Sage & Sand Theme */
 .shopListContainer {
   display: flex;
   flex-direction: column;
@@ -6,26 +6,26 @@
 }
 
 .shopListContainer h3 {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--slate-500, #64748b);
+  color: var(--sand-500, #7d7d6c);
   margin-bottom: 12px;
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--slate-100, #f1f5f9);
+  border-bottom: 1px solid var(--sand-100, #f4f4ee);
 }
 
 .shopListContainer button {
-  background: var(--slate-50, #f8fafc);
-  color: var(--slate-700, #334155);
+  background: var(--sand-50, #fafaf7);
+  color: var(--sand-700, #3f3f35);
   padding: 12px 14px;
-  border: 1.5px solid var(--slate-200, #e2e8f0);
+  border: 1.5px solid var(--sand-200, #e8e8df);
   border-radius: 14px;
   font-size: 0.92rem;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(40, 50, 42, 0.04);
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -34,17 +34,17 @@
 }
 
 .shopListContainer button:hover {
-  background: var(--primary-light, #f0fdfa);
-  border-color: #14b8a6;
-  color: var(--primary, #0f766e);
+  background: #f3f7f3;
+  border-color: #a7c1a8;
+  color: #3a553c;
   transform: translateX(3px);
 }
 
 .shopListContainer button.active {
-  background: #f0fdfa;
-  border-color: #0f766e;
-  color: #0f766e;
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.15);
+  background: #eef4ee;
+  border-color: #486b4b;
+  color: #3a553c;
+  box-shadow: 0 3px 10px rgba(58, 85, 60, 0.15);
 }
 
 @media (max-width: 992px) {

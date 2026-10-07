@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <!-- Modern App Bar -->
+  <!-- Top Navigation App Bar -->
   <header class="navbar" role="banner">
     <a href="index.html" class="brand-wrapper">
       <i class="fa-solid fa-soap"></i>
@@ -26,7 +26,7 @@
 
     <!-- Center Nav Buttons -->
     <nav class="nav-center-links" role="navigation" aria-label="Customer Navigation">
-      <a href="#service" class="nav-link-btn active"><i class="fa-solid fa-shirt"></i> সার্ভিসেস</a>
+      <a href="#service" class="nav-link-btn active"><i class="fa-solid fa-shirt"></i> লন্ড্রি সেবা</a>
       <a href="#history" class="nav-link-btn"><i class="fa-solid fa-clock-rotate-left"></i> অর্ডার হিস্ট্রি</a>
       <button class="nav-link-btn" id="toggleCommentBtn" type="button"><i class="fa-solid fa-comment-dots"></i> মতামত দিন</button>
     </nav>
@@ -34,7 +34,7 @@
     <!-- Right Actions: Balance & Profile -->
     <div class="nav-right-actions">
       <div class="balance-capsule">
-        <span>💰 ৳<span id="userBalance">0.0</span></span>
+        <span>💰 ৳<span id="userBalance">0.00</span></span>
         <button class="recharge-pill-btn" onclick="goToRechargePage()" type="button">
           <i class="fa-solid fa-plus"></i> রিচার্জ
         </button>
@@ -46,7 +46,7 @@
   <!-- Slide-out Feedback / Comment Form -->
   <aside id="commentSection" aria-label="Feedback Drawer">
     <form id="commentForm">
-      <h3 style="margin-bottom: 8px; color: var(--slate-900);">✨ আপনার মূল্যবান মতামত দিন</h3>
+      <h3 style="margin-bottom: 8px; color: var(--sand-900);">✨ আপনার মূল্যবান মতামত দিন</h3>
       <input type="text" id="userName" placeholder="আপনার নাম" required />
       <input type="text" id="userLocation" placeholder="আপনার এলাকা বা শহর (যেমন: চট্টগ্রাম)" required />
       <textarea id="userComment" placeholder="আমাদের সার্ভিস সম্পর্কে আপনার অভিজ্ঞতা লিখুন..." required></textarea>
@@ -60,21 +60,49 @@
     <p>পছন্দের দোকান নির্বাচন করুন, কাপড় বেছে নিন এবং ওয়ালেটের মাধ্যমে নিমেষেই অর্ডার কনফার্ম করুন।</p>
   </section>
 
+  <!-- Selected Shop Profile Banner -->
+  <div class="shop-hero-card" id="selectedShopBanner">
+    <div class="shop-info-banner">
+      <div class="shop-details-wrap">
+        <div class="shop-icon-avatar"><i class="fa-solid fa-store"></i></div>
+        <div>
+          <div class="shop-title-text" id="activeShopNameDisplay">লন্ড্রি শপ লোড হচ্ছে...</div>
+          <div class="shop-place-badge"><i class="fa-solid fa-location-dot"></i> <span id="activeShopPlaceDisplay">চট্টগ্রাম</span></div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="shop-status-pill"><i class="fa-solid fa-circle" style="font-size: 0.55rem; color: #16a34a;"></i> সেবা চালু আছে</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Service Interface -->
   <main id="service" class="container">
     <!-- Active Shops Sidebar -->
     <aside class="sidebar" aria-label="Shop Selection">
       <div class="shopListContainer">
         <h3><i class="fa-solid fa-store"></i> সক্রিয় লন্ড্রি শপসমূহ</h3>
-        <p style="font-size: 0.88rem; color: var(--slate-500); margin-bottom: 12px;">দোকান লোড হচ্ছে...</p>
+        <p style="font-size: 0.88rem; color: var(--sand-500); margin-bottom: 12px;">দোকান লোড হচ্ছে...</p>
       </div>
     </aside>
 
-    <!-- Products & Services Grid -->
-    <section class="main" aria-label="Garment Products">
-      <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--slate-500);">
-        <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--primary);"></i>
-        <p>লন্ড্রি সেবা ও মূল্য তালিকা লোড হচ্ছে...</p>
+    <!-- Products & Services Workspace -->
+    <section class="main-wrapper" style="flex: 1; min-width: 0;">
+      <!-- Category Filter Bar -->
+      <div class="category-filter-bar">
+        <button class="category-chip active" type="button" onclick="filterCategory('all')">সব আইটেম</button>
+        <button class="category-chip" type="button" onclick="filterCategory('men')">পুরুষ (Men)</button>
+        <button class="category-chip" type="button" onclick="filterCategory('women')">মহিলা (Women)</button>
+        <button class="category-chip" type="button" onclick="filterCategory('household')">গৃহস্থালী (Household)</button>
+        <button class="category-chip" type="button" onclick="filterCategory('dryclean')">ড্রাই ক্লিন (Dry Clean)</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="main" aria-label="Garment Products">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--sand-500);">
+          <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--primary);"></i>
+          <p>লন্ড্রি সেবা ও মূল্য তালিকা লোড হচ্ছে...</p>
+        </div>
       </div>
     </section>
   </main>
@@ -83,7 +111,7 @@
   <div class="submit-area">
     <button class="submit-btn" onclick="generateBill()" type="button">
       <i class="fa-solid fa-receipt"></i>
-      <span>শপ সিলেক্ট ও বিল প্রস্তুত করুন</span>
+      <span>অর্ডার পর্যালোচনা ও বিল প্রস্তুত করুন</span>
     </button>
   </div>
 
@@ -91,7 +119,7 @@
   <section id="history" aria-labelledby="history-heading">
     <h2 id="history-heading"><i class="fa-solid fa-clock-rotate-left" style="color: var(--primary);"></i> পূর্ববর্তী অর্ডারসমূহ</h2>
     <div id="userOrders">
-      <p style="color: var(--slate-500); text-align: center;">অর্ডার তালিকা লোড হচ্ছে...</p>
+      <p style="color: var(--sand-500); text-align: center;">অর্ডার তালিকা লোড হচ্ছে...</p>
     </div>
   </section>
 
@@ -103,14 +131,21 @@
       
       <div id="billDetails"></div>
 
-      <div style="margin-top: 16px;">
-        <label style="font-size: 0.85rem; font-weight: 600; color: var(--slate-700); margin-bottom: 4px; display: block;">ডেলিভারি গ্রহীতার নাম</label>
+      <!-- Coupon Code Box -->
+      <div class="coupon-input-wrap">
+        <input type="text" id="couponCode" placeholder="কুপন কোড (যেমন: FIRST20)" />
+        <button class="coupon-btn" type="button" onclick="applyCoupon()">প্রয়োগ করুন</button>
+      </div>
+      <div id="couponMessage" style="font-size: 0.82rem; margin-top: -10px; margin-bottom: 12px; font-weight: 600;"></div>
+
+      <div style="margin-top: 10px;">
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--sand-700); margin-bottom: 4px; display: block;">ডেলিভারি গ্রহীতার নাম</label>
         <input type="text" id="customerName" class="input-field" placeholder="আপনার সম্পূর্ণ নাম" required>
         
-        <label style="font-size: 0.85rem; font-weight: 600; color: var(--slate-700); margin-bottom: 4px; display: block;">মোবাইল নম্বর</label>
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--sand-700); margin-bottom: 4px; display: block;">মোবাইল নম্বর</label>
         <input type="tel" id="customerPhone" class="input-field" placeholder="ডেলিভারি হিরোর সাথে যোগাযোগের নম্বর" required>
         
-        <label style="font-size: 0.85rem; font-weight: 600; color: var(--slate-700); margin-bottom: 4px; display: block;">পিকআপ ও ডেলিভারি ঠিকানা</label>
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--sand-700); margin-bottom: 4px; display: block;">পিকআপ ও ডেলিভারি ঠিকানা</label>
         <input type="text" id="customerAddress" class="input-field" placeholder="বাসা/ফ্ল্যাট নং, রোড, এলাকা" required>
       </div>
 

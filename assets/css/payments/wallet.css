@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
+/* ==========================================================================
+   Fintech Digital Wallet - Gentle Sage & Sand Aesthetic (No Blue, No Dark)
+   ========================================================================== */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,8 +12,8 @@
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #e2e8f0 100%);
-  color: #1e293b;
+  background: linear-gradient(135deg, #f7f9f7 0%, #f4f6f3 50%, #ecefe8 100%);
+  color: #2b352d;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -31,21 +35,21 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #0f766e;
+  color: #486b4b;
   font-weight: 700;
   font-size: 0.92rem;
   text-decoration: none;
   background: #ffffff;
   padding: 8px 16px;
   border-radius: 9999px;
-  border: 1px solid #cbd5e1;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dbe2d9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
 }
 
 .back-to-dashboard:hover {
-  background: #f0fdfa;
-  border-color: #14b8a6;
+  background: #f3f7f3;
+  border-color: #7fa481;
   transform: translateX(-2px);
 }
 
@@ -55,27 +59,27 @@ body {
 }
 
 /* ==========================================================================
-   Virtual Fintech Card
+   Virtual Fintech Card - Soft Gentle Sage (Not Dark Black, Not Blue)
    ========================================================================== */
 .virtual-card {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #042f2e 100%);
+  background: linear-gradient(135deg, #527555 0%, #436346 50%, #354f37 100%);
   color: #ffffff;
-  padding: 28px 24px;
-  border-radius: 24px;
-  box-shadow: 0 20px 35px -10px rgba(15, 118, 110, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  padding: 26px 24px;
+  border-radius: 22px;
+  box-shadow: 0 16px 32px -8px rgba(53, 79, 55, 0.35);
   margin-bottom: 24px;
 }
 
 .virtual-card::after {
   content: "";
   position: absolute;
-  top: -40%;
+  top: -30%;
   right: -20%;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(45, 212, 191, 0.25) 0%, transparent 70%);
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(167, 193, 168, 0.25) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -84,7 +88,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .card-brand {
@@ -97,16 +101,16 @@ body {
 }
 
 .card-chip {
-  width: 40px;
-  height: 28px;
-  background: linear-gradient(135deg, #fbbf24, #d97706);
+  width: 38px;
+  height: 26px;
+  background: linear-gradient(135deg, #e4c278, #c69b43);
   border-radius: 6px;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
 .card-balance-label {
-  font-size: 0.82rem;
-  color: #ccfbf1;
+  font-size: 0.8rem;
+  color: #e5ede5;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -116,7 +120,7 @@ body {
   font-size: clamp(2rem, 6vw, 2.6rem);
   font-weight: 800;
   letter-spacing: -0.03em;
-  margin: 4px 0 16px;
+  margin: 4px 0 14px;
   color: #ffffff;
 }
 
@@ -124,9 +128,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.85rem;
-  color: #ccfbf1;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.84rem;
+  color: #e5ede5;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
   padding-top: 12px;
 }
 
@@ -137,15 +141,15 @@ body {
   background: #ffffff;
   padding: 24px;
   border-radius: 20px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e0e6df;
+  box-shadow: 0 8px 24px -4px rgba(40, 50, 42, 0.06);
   margin-bottom: 24px;
 }
 
 .recharge-box h3 {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f2821;
   margin-bottom: 14px;
   display: flex;
   align-items: center;
@@ -162,20 +166,20 @@ body {
 
 .quick-chip {
   padding: 6px 14px;
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
+  background: #f4f6f4;
+  border: 1px solid #d4ddd3;
   border-radius: 9999px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #334155;
+  color: #3f4e41;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .quick-chip:hover {
-  background: #f0fdfa;
-  border-color: #14b8a6;
-  color: #0f766e;
+  background: #eef3ee;
+  border-color: #7fa481;
+  color: #304432;
 }
 
 .input-amount-wrapper {
@@ -190,7 +194,7 @@ body {
   transform: translateY(-50%);
   font-size: 1.2rem;
   font-weight: 800;
-  color: #64748b;
+  color: #7a887d;
 }
 
 .input-amount-wrapper input {
@@ -198,36 +202,36 @@ body {
   padding: 13px 14px 13px 38px;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #0f172a;
-  border: 1.5px solid #cbd5e1;
+  color: #1f2821;
+  border: 1.5px solid #d4ddd3;
   border-radius: 12px;
   outline: none;
-  background: #f8fafc;
+  background: #fbfdfb;
   transition: all 0.2s ease;
 }
 
 .input-amount-wrapper input:focus {
-  border-color: #0f766e;
+  border-color: #486b4b;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+  box-shadow: 0 0 0 3px rgba(72, 107, 75, 0.15);
 }
 
 .btn-proceed {
   width: 100%;
   padding: 13px;
-  background: linear-gradient(135deg, #0d9488, #0f766e);
+  background: linear-gradient(135deg, #547c57, #416244);
   color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.25);
+  box-shadow: 0 4px 12px rgba(65, 98, 68, 0.2);
   transition: all 0.2s ease;
 }
 
 .btn-proceed:hover {
-  background: linear-gradient(135deg, #0f766e, #115e59);
+  background: linear-gradient(135deg, #486b4b, #38533a);
   transform: translateY(-1px);
 }
 
@@ -240,7 +244,7 @@ body {
   gap: 10px;
   margin-top: 18px;
   padding-top: 18px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #e5ebe4;
 }
 
 .payment-option {
@@ -248,18 +252,18 @@ body {
   align-items: center;
   gap: 10px;
   padding: 12px;
-  background: #f8fafc;
-  border: 1.5px solid #e2e8f0;
+  background: #fcfdfc;
+  border: 1.5px solid #e0e7df;
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .payment-option:hover {
-  border-color: #0f766e;
-  background: #f0fdfa;
+  border-color: #5d8760;
+  background: #f4f8f4;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
 .payment-option img {
@@ -271,20 +275,20 @@ body {
 .payment-option span {
   font-size: 0.88rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #2b352d;
 }
 
 /* ==========================================================================
-   bKash Simulated Modal & OTP Box
+   bKash Simulated Box & OTP
    ========================================================================== */
 .bkash-form {
   display: none;
-  background: #e2136e;
+  background: #d8236d;
   color: #ffffff;
   padding: 24px;
   border-radius: 18px;
   margin-top: 16px;
-  box-shadow: 0 10px 25px -5px rgba(226, 19, 110, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(216, 35, 109, 0.35);
 }
 
 .bkash-form h3 {
@@ -304,7 +308,7 @@ body {
   border-radius: 10px;
   border: none;
   font-size: 1rem;
-  color: #1e293b;
+  color: #1f2821;
   margin-bottom: 12px;
   outline: none;
 }
@@ -326,11 +330,11 @@ body {
 
 .bkash-form .confirm {
   background: #ffffff;
-  color: #e2136e;
+  color: #d8236d;
 }
 
 .bkash-form .cancel {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.15);
   color: #ffffff;
 }
 
@@ -341,14 +345,14 @@ body {
   background: #ffffff;
   padding: 24px;
   border-radius: 20px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e0e6df;
+  box-shadow: 0 8px 24px -4px rgba(40, 50, 42, 0.06);
 }
 
 .history-section h3 {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #1f2821;
   margin-bottom: 14px;
   display: flex;
   align-items: center;
@@ -366,18 +370,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  padding: 11px 14px;
+  background: #fbfdfb;
+  border: 1px solid #e3eae2;
   border-radius: 12px;
   font-size: 0.88rem;
-  color: #334155;
+  color: #3b473d;
   font-weight: 500;
-}
-
-.history-section li::before {
-  content: "💳";
-  margin-right: 8px;
 }
 
 @media (max-width: 480px) {

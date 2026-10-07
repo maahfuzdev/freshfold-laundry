@@ -1,12 +1,9 @@
-body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
+/* Admin Dashboard Overrides & Transitions */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
 
-    .card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(40, 50, 42, 0.08);
+}
